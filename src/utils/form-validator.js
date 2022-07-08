@@ -1,5 +1,3 @@
-import toaster from "./toaster";
-
 /**
  * @link https://getbootstrap.com/docs/5.1/forms/validation/
  */
@@ -51,7 +49,7 @@ class FormValidator {
           event.stopPropagation();
           // Show message
           if (form.dataset.validationMessage) {
-            toaster({
+            window.toaster({
               body: form.dataset.validationMessage,
               className: "border-0 bg-danger text-white",
             });
