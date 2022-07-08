@@ -1,0 +1,22 @@
+.demo {
+  border: 2px dashed #ccc;
+  margin-bottom: 1rem;
+  min-width: 320px;
+}
+
+.demo:not(.no-resize) {
+  overflow: auto;
+  padding: 2rem 1rem;
+  position: relative;
+  resize: horizontal;
+}
+.demo:not(.no-resize):after {
+  color: #666;
+  font-size: 0.825rem;
+  line-height: 0;
+  position: absolute;
+  bottom: 0.75rem;
+  content: "Resize me!";
+  right: 0.85rem;
+}
+/*# sourceMappingURL=demo.css.map */

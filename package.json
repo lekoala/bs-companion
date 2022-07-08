@@ -1,0 +1,47 @@
+{
+  "name": "bs-companion",
+  "version": "1.0.0",
+  "description": "The perfect Bootstrap companion",
+  "type": "module",
+  "main": "bs-companion",
+  "scripts": {
+    "test": "ava",
+    "build": "esbuild --bundle --minify --format=esm --sourcemap bs-companion.js --outfile=./static/dist/bs-companion.min.js",
+    "start": "npm run build -- --servedir=./static",
+    "watch": "npm run build -- --watch",
+    "build-min": "npm run build && git add -A && git commit -m \"build min file\"",
+    "update-deps": "npx npm-check-updates -u",
+    "bump": "npm run build-min && npm version patch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lekoala/bs-companion"
+  },
+  "keywords": [
+    "html",
+    "javascript",
+    "bootstrap",
+    "companion",
+    "toast",
+    "modals",
+    "tabs",
+    "table",
+    "responsive",
+    "es6"
+  ],
+  "author": "LeKoala",
+  "license": "MIT",
+  "ava": {
+    "require": [
+      "./test/_setup-browser-env.js"
+    ]
+  },
+  "dependencies": {
+    "bootstrap": "5.2.0-beta1"
+  },
+  "devDependencies": {
+    "@happy-dom/global-registrator": "^5.3.4",
+    "ava": "^4.3.0",
+    "esbuild": "^0.14.47"
+  }
+}

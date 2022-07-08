@@ -1,0 +1,18 @@
+@mixin validation-error-icon() {
+  color: $danger;
+  padding-right: $input-height-inner;
+  background-image: escape-svg($form-feedback-icon-invalid);
+  background-repeat: no-repeat;
+  background-position: right $input-height-inner-quarter center;
+  background-size: $input-height-inner-half $input-height-inner-half;
+}
+
+.accordion-item.is-invalid {
+  .accordion-header button:not([aria-expanded="true"]) {
+    @include validation-error-icon();
+  }
+}
+
+.nav-link.is-invalid {
+  @include validation-error-icon();
+}

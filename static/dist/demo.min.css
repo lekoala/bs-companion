@@ -1,0 +1,2 @@
+.demo{border:2px dashed #ccc;margin-bottom:1rem;min-width:320px}.demo:not(.no-resize){overflow:auto;padding:2rem 1rem;position:relative;resize:horizontal}.demo:not(.no-resize):after{color:#666;font-size:.825rem;line-height:0;position:absolute;bottom:.75rem;content:"Resize me!";right:.85rem}
+/*# sourceMappingURL=demo.min.css.map */

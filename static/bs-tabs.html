@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    <title>Bs Tabs demo</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+
+    <meta name="theme-color" content="#111111" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#eeeeee" media="(prefers-color-scheme: dark)" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.bundle.min.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" type="module"></script>
+
+    <script type="module">
+      // This need to execute before bs companion is loaded, because the trigger event will fire
+      // as soon as the element is defined
+      document.querySelectorAll(".lazy-loadable").forEach((el) => {
+        el.addEventListener(
+          "lazyload",
+          (ev) => {
+            el.innerHTML = "I will be replaced in 2s";
+            setTimeout(() => {
+              el.innerHTML = "I'm not lazy anymore";
+            }, 2000);
+          },
+          {
+            once: true,
+          }
+        );
+      });
+    </script>
+
+    <link href="./dist/demo.min.css" rel="stylesheet" />
+    <link href="./dist/bs-companion.min.css" rel="stylesheet" />
+    <script src="./dist/bs-companion.min.js" type="module"></script>
+  </head>
+
+  <body>
+    <div class="container py-5">
+      <h1>BS Companion</h1>
+      <a href="index.html">Back</a>
+      <hr />
+      <h2>BS Tabs</h2>
+
+      <p>
+        Wrap your tabs nav with a
+        <code>bs-tabs</code>
+        components and let the magic happen!.
+      </p>
+      <p>
+        Add a
+        <code>responsive</code>
+        attribute to make your tabs collapsable to a dropdown.
+      </p>
+
+      <div class="demo" style="min-height: 400px">
+        <bs-tabs responsive>
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link active"
+                id="home-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#home"
+                type="button"
+                role="tab"
+                aria-controls="home"
+                aria-selected="true">
+                Home
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                id="profile-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#profile"
+                type="button"
+                role="tab"
+                aria-controls="profile"
+                aria-selected="false">
+                Profile
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                id="messages-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#messages"
+                type="button"
+                role="tab"
+                aria-controls="messages"
+                aria-selected="false">
+                Messages
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link disabled"
+                id="settings-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#settings"
+                type="button"
+                role="tab"
+                aria-controls="settings"
+                aria-selected="false"
+                disabled>
+                Settings
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                id="longtab-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#longtab"
+                type="button"
+                role="tab"
+                aria-controls="longtab"
+                aria-selected="false">
+                A very long tab name
+              </button>
+            </li>
+          </ul>
+        </bs-tabs>
+
+        <div class="tab-content">
+          <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab" tabindex="0">home tab</div>
+          <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">profile tab</div>
+          <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab" tabindex="0">messages</div>
+          <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab" tabindex="0">settings</div>
+          <div class="tab-pane" id="longtab" role="tabpanel" aria-labelledby="longtab-tab" tabindex="0">longtab</div>
+        </div>
+      </div>
+
+      <p>
+        Add a
+        <code>linkable</code>
+        attribute to make your tabs linkable through anchors.
+      </p>
+
+      <p>
+        You can also have lazy loadable nodes, simply give them the
+        <code>lazy-loadable</code>
+        class and they will get a
+        <code>lazyload</code>
+        event.
+        <br />
+        NOTE: the listener need to be defined before
+        <code>bs-tabs</code>
+        is defined.
+      </p>
+
+      <p>
+        It's better to not have any
+        <code>active</code>
+        class, but they will get removed anyway.
+      </p>
+
+      <p>
+        Nested tabs are supported as long as they follow
+        <code>parentid__childid</code>
+        convention.
+      </p>
+
+      <p>
+        In order to restore the proper when submitting the a form (eg: after redirecting back), any input with the name
+        <code>_hash</code>
+        will get the current hash value
+      </p>
+
+      <div class="demo" style="min-height: 400px">
+        <bs-tabs linkable>
+          <ul class="nav nav-tabs" id="myTab2" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active" id="panel-1-tab" data-bs-toggle="tab" data-bs-target="#panel-1" type="button" role="tab">Panel 1</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="panel-2-tab" data-bs-toggle="tab" data-bs-target="#panel-2" type="button" role="tab">Panel 2</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="panel-3-tab" data-bs-toggle="tab" data-bs-target="#panel-3" type="button" role="tab">Panel 3 with nested tabs</a>
+            </li>
+          </ul>
+        </bs-tabs>
+
+        <div class="tab-content">
+          <div class="tab-pane fade active" id="panel-1" role="tabpanel" aria-labelledby="panel-1-tab" tabindex="0">
+            panel 1
+            <div class="lazy-loadable">i'm lazy</div>
+          </div>
+          <div class="tab-pane fade" id="panel-2" role="tabpanel" aria-labelledby="panel-2-tab" tabindex="0">
+            panel 2
+            <div class="lazy-loadable">i'm lazy</div>
+          </div>
+          <div class="tab-pane fade" id="panel-3" role="tabpanel" aria-labelledby="panel-3-tab" tabindex="0">
+            <p>This have linkable nested tabs</p>
+            <bs-tabs linkable>
+              <ul class="nav nav-tabs" id="myTab2" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link active" id="nested-1-tab" data-bs-toggle="tab" data-bs-target="#panel-3__nested-1" type="button" role="tab">Nested 1</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" id="nested-2-tab" data-bs-toggle="tab" data-bs-target="#panel-3__nested-2" type="button" role="tab">Nested 2</a>
+                </li>
+              </ul>
+            </bs-tabs>
+            <div class="tab-content">
+              <div class="tab-pane fade active" id="panel-3__nested-1" role="tabpanel" aria-labelledby="nested-1-tab" tabindex="0">
+                nested 1
+                <div class="lazy-loadable">i'm lazy</div>
+              </div>
+              <div class="tab-pane fade" id="panel-3__nested-2" role="tabpanel" aria-labelledby="nested-2-tab" tabindex="0">
+                nested 2
+                <div class="lazy-loadable">i'm lazy</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

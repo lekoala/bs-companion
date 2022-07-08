@@ -1,0 +1,47 @@
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+
+// Optional Sass map overrides here
+
+@import "../../node_modules/bootstrap/scss/maps";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+@import "form-validator.scss";
+@import "modalizer.scss";
+
+// Avoid FOUC
+responsive-table,
+bs-tabs {
+  &:not(:defined) {
+    visibility: hidden;
+  }
+}
+
+bs-tabs {
+  position: relative;
+
+  // Align to the end of line
+  &[end] {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  // Style applied when nav is collapsed to a dropdown menu
+  &.bs-tabs-dropdown {
+    .nav-link.active {
+      @include caret();
+      min-width: calc(var(--min-width) + 20px);
+    }
+    .nav-link:not(.active) {
+      display: none;
+    }
+  }
+}
+responsive-table {
+  // Without this, it will only hide columns if header is too large
+  td,
+  th {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
