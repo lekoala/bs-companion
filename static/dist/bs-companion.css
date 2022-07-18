@@ -88,9 +88,10 @@ bs-tabs:not(:defined) {
 
 bs-tabs {
   position: relative;
+  display: flex;
+  flex-grow: 1;
 }
 bs-tabs[end] {
-  display: flex;
   justify-content: flex-end;
 }
 bs-tabs.bs-tabs-dropdown .nav-link.active {

@@ -20,10 +20,12 @@ bs-tabs {
 
 bs-tabs {
   position: relative;
+  display: flex;
+  // It needs all available space to compute width
+  flex-grow: 1;
 
   // Align to the end of line
   &[end] {
-    display: flex;
     justify-content: flex-end;
   }
 
