@@ -10,6 +10,11 @@
     "start": "npm run build -- --servedir=./static",
     "watch": "npm run build -- --watch",
     "build-min": "npm run build && git add -A && git commit -m \"build min file\"",
+    "compile-css": "sass scss/bs-companion.scss:static/dist/bs-companion.min.css --style compressed --load-path=node_modules/",
+    "watch-css": "npm run compile-css -- --watch --poll",
+    "prefix-css": "postcss static/dist/bs-companion.min.css --replace --use autoprefixer",
+    "build-css": "npm run compile-css && npm run prefix-css",
+    "build-all": "npm run build && npm run build-css && git add -A && git commit -m \"build files\"",
     "update-deps": "npx npm-check-updates -u",
     "bump": "npm run build-min && npm version patch"
   },
