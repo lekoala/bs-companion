@@ -35,7 +35,8 @@ class BsTabs extends HTMLElement {
     // Always call super first in constructor
     super();
 
-    this.style.display = "block";
+    // make sure it gets a display style in css
+    // this.style.display = "block";
     this.style.visibility = "hidden";
 
     this.lazySelector = ".lazy-loadable";

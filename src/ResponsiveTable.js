@@ -101,6 +101,7 @@ class ResponsiveTable extends HTMLElement {
   constructor() {
     // Always call super first in constructor
     super();
+    
     this.style.display = "block"; // Otherwise resize doesn't happen
     this.style.overflowX = "hidden"; // Prevent scrollbars from appearing
 

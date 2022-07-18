@@ -12,6 +12,7 @@
 // Avoid FOUC
 responsive-table,
 bs-tabs {
+  // This gets overriden in js
   &:not(:defined) {
     visibility: hidden;
   }
