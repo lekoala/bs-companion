@@ -1,5 +1,7 @@
+"use strict";
+
 /**
- * @link https://getbootstrap.com/docs/5.1/forms/validation/
+ * @link https://getbootstrap.com/docs/5.2/forms/validation/
  */
 class FormValidator {
   /**

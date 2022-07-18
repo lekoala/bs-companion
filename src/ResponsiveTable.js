@@ -147,6 +147,4 @@ class ResponsiveTable extends HTMLElement {
   }
 }
 
-customElements.define("responsive-table", ResponsiveTable);
-
 export default ResponsiveTable;

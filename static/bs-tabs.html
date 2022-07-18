@@ -31,11 +31,23 @@
           }
         );
       });
+
+      // This is still fired after the isConnected callback if not using setTimeout hack
+      customElements.whenDefined("bs-tabs").then(() => {
+        console.log("not defined");
+      });
     </script>
 
     <link href="./dist/demo.min.css" rel="stylesheet" />
     <link href="./dist/bs-companion.min.css" rel="stylesheet" />
     <script src="./dist/bs-companion.min.js" type="module"></script>
+
+    <script type="module">
+      // This is still fired after the isConnected callback if not using setTimeout hack
+      customElements.whenDefined("bs-tabs").then(() => {
+        console.log("defined");
+      });
+    </script>
   </head>
 
   <body>
@@ -158,7 +170,7 @@
       <p>
         It's better to not have any
         <code>active</code>
-        class, but they will get removed anyway.
+        class, but they will get removed anyway (they will trigger lazy content if set).
       </p>
 
       <p>
@@ -177,7 +189,7 @@
         <bs-tabs linkable>
           <ul class="nav nav-tabs" id="myTab2" role="tablist">
             <li class="nav-item" role="presentation">
-              <a class="nav-link active" id="panel-1-tab" data-bs-toggle="tab" data-bs-target="#panel-1" type="button" role="tab">Panel 1</a>
+              <a class="nav-link" id="panel-1-tab" data-bs-toggle="tab" data-bs-target="#panel-1" type="button" role="tab">Panel 1</a>
             </li>
             <li class="nav-item" role="presentation">
               <a class="nav-link" id="panel-2-tab" data-bs-toggle="tab" data-bs-target="#panel-2" type="button" role="tab">Panel 2</a>
@@ -189,7 +201,7 @@
         </bs-tabs>
 
         <div class="tab-content">
-          <div class="tab-pane fade active" id="panel-1" role="tabpanel" aria-labelledby="panel-1-tab" tabindex="0">
+          <div class="tab-pane fade" id="panel-1" role="tabpanel" aria-labelledby="panel-1-tab" tabindex="0">
             panel 1
             <div class="lazy-loadable">i'm lazy</div>
           </div>
@@ -202,7 +214,7 @@
             <bs-tabs linkable>
               <ul class="nav nav-tabs" id="myTab2" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <a class="nav-link active" id="nested-1-tab" data-bs-toggle="tab" data-bs-target="#panel-3__nested-1" type="button" role="tab">Nested 1</a>
+                  <a class="nav-link" id="nested-1-tab" data-bs-toggle="tab" data-bs-target="#panel-3__nested-1" type="button" role="tab">Nested 1</a>
                 </li>
                 <li class="nav-item" role="presentation">
                   <a class="nav-link" id="nested-2-tab" data-bs-toggle="tab" data-bs-target="#panel-3__nested-2" type="button" role="tab">Nested 2</a>
@@ -210,7 +222,7 @@
               </ul>
             </bs-tabs>
             <div class="tab-content">
-              <div class="tab-pane fade active" id="panel-3__nested-1" role="tabpanel" aria-labelledby="nested-1-tab" tabindex="0">
+              <div class="tab-pane fade" id="panel-3__nested-1" role="tabpanel" aria-labelledby="nested-1-tab" tabindex="0">
                 nested 1
                 <div class="lazy-loadable">i'm lazy</div>
               </div>

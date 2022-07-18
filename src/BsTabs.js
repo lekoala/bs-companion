@@ -1,3 +1,5 @@
+"use strict";
+
 const tabsSelector = ".nav";
 const navLinkSelector = ".nav-link";
 const dropdownItemClass = "dropdown-item";
@@ -306,7 +308,5 @@ class BsTabs extends HTMLElement {
     }
   }
 }
-
-customElements.define("bs-tabs", BsTabs);
 
 export default BsTabs;
