@@ -16,3 +16,5 @@ window.toaster = toaster;
 window.modalizer = modalizer;
 window.modalizerConfirm = modalizerConfirm;
 window.FormValidator = FormValidator;
+
+export { BsTabs, BsToggle, ResponsiveTable, toaster, modalizer, modalizerConfirm, FormValidator };

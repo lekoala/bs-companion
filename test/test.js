@@ -1,13 +1,17 @@
 import test from "ava";
-import "../bs-companion.js";
-import BsTabs from "../src/BsTabs.js";
-import ResponsiveTable from "../src/ResponsiveTable.js";
+import * as BsCompanion from "../bs-companion.js";
 
 test("tabs is registered", (t) => {
-  let inst = customElements.get("bs-tabs");
-  t.is(inst, BsTabs);
+  const inst = customElements.get("bs-tabs");
+  t.is(inst, BsCompanion.BsTabs);
 });
 test("responsive table is registered", (t) => {
-  let inst = customElements.get("responsive-table");
-  t.is(inst, ResponsiveTable);
+  const inst = customElements.get("responsive-table");
+  t.is(inst, BsCompanion.ResponsiveTable);
 });
+test("toggle is registered", (t) => {
+  const inst = customElements.get("bs-toggle");
+  t.is(inst, BsCompanion.BsToggle);
+});
+
+//TODO: figure out how to properly import bootstrap to test other things
