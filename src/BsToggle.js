@@ -1,6 +1,6 @@
 "use strict";
 
-import normalizeData from "./utils/normalizeData";
+import normalizeData from "./utils/normalizeData.js";
 
 /**
  * Self initializing tooltip and popover
