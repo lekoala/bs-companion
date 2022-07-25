@@ -2,6 +2,20 @@
 
 import normalizeData from "./utils/normalizeData.js";
 
+const resizeObserver = new ResizeObserver((entries) => {
+  for (const entry of entries) {
+    const el = entry.target;
+
+    const tooltip = bootstrap.Tooltip.getInstance(el) || new bootstrap.Tooltip(el);
+    const prop = normalizeData(getComputedStyle(el).getPropertyValue("--tooltip-enable").trim());
+    if (prop) {
+      tooltip.enable();
+    } else {
+      tooltip.disable();
+    }
+  }
+});
+
 /**
  * Self initializing tooltip and popover
  */
@@ -18,7 +32,14 @@ class BsToggle extends HTMLElement {
       options[key] = normalizeData(options[key]);
     }
     const cls = options.toggle ? options.toggle[0].toUpperCase() + options.toggle.substring(1) : "Tooltip";
-    this.toggle = new bootstrap[cls](this.firstElementChild, options);
+    const el = this.firstElementChild;
+    if (!el.hasAttribute("title") && !options.title) {
+      options.title = el.textContent.trim();
+    }
+    this.toggle = new bootstrap[cls](el, options);
+    if (this.hasAttribute("mobile")) {
+      resizeObserver.observe(el);
+    }
   }
 }
 
