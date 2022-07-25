@@ -42,11 +42,11 @@
     ]
   },
   "dependencies": {
-    "bootstrap": "5.2.0-beta1"
+    "bootstrap": "5.2.0"
   },
   "devDependencies": {
-    "@happy-dom/global-registrator": "^5.3.4",
+    "@happy-dom/global-registrator": "^6.0.4",
     "ava": "^4.3.1",
-    "esbuild": "^0.14.47"
+    "esbuild": "^0.14.50"
   }
 }
