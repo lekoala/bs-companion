@@ -5,8 +5,7 @@ import normalizeData from "./utils/normalizeData.js";
 const resizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
     const el = entry.target;
-
-    const tooltip = bootstrap.Tooltip.getInstance(el) || new bootstrap.Tooltip(el);
+    const tooltip = bootstrap.Tooltip.getInstance(el) || new bootstrap.Tooltip(el, el.parentElement.options);
     const prop = normalizeData(getComputedStyle(el).getPropertyValue("--tooltip-enable").trim());
     if (prop) {
       tooltip.enable();
@@ -34,9 +33,12 @@ class BsToggle extends HTMLElement {
     const cls = options.toggle ? options.toggle[0].toUpperCase() + options.toggle.substring(1) : "Tooltip";
     const el = this.firstElementChild;
     if (!el.hasAttribute("title") && !options.title) {
-      options.title = el.textContent.trim();
+      // BSN native doesn't support properly title attribute with enable/disable
+      el.setAttribute("title", el.textContent.trim());
     }
-    this.toggle = new bootstrap[cls](el, options);
+    // Store options for later init
+    this.options = options;
+    this.toggle = new bootstrap[cls](el, this.options);
     if (this.hasAttribute("mobile")) {
       resizeObserver.observe(el);
     }
