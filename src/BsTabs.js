@@ -45,31 +45,10 @@ class BsTabs extends HTMLElement {
   setBaseWidth() {
     let totalWidth = 0;
     this.querySelectorAll("li").forEach((tab) => {
-      // sometimes this return an inaccurate value
-      // tab.dataset.baseWidth = tab.offsetWidth;
-      tab.dataset.baseWidth = this.calcTextWidth(tab.textContent.trim());
+      tab.dataset.baseWidth = tab.offsetWidth;
       totalWidth += parseInt(tab.dataset.baseWidth);
     });
     this.tabs.dataset.baseWidth = totalWidth;
-  }
-
-  /**
-   * @param {string} text
-   * @param {string} size
-   * @returns {Number}
-   */
-  calcTextWidth(text, size = null) {
-    var span = document.createElement("span");
-    document.body.appendChild(span);
-    span.style.fontSize = size || "inherit";
-    span.style.height = "auto";
-    span.style.width = "auto";
-    span.style.position = "absolute";
-    span.style.whiteSpace = "no-wrap";
-    span.innerHTML = text;
-    const width = Math.ceil(span.clientWidth) + 34; // paddding + borders
-    document.body.removeChild(span);
-    return width;
   }
 
   createMobileMenu() {
@@ -83,7 +62,7 @@ class BsTabs extends HTMLElement {
 
       // Avoid menu to be crunched on small screens
       // We apply this as a css var because it's only necessary with nav-tabs-dropdown
-      link.style.setProperty("--min-width", `${tab.dataset.baseWidth}px`);
+      // link.style.setProperty("--min-width", `${tab.dataset.baseWidth}px`);
 
       newChild.append(newChildLink);
       newChildLink.linkElement = link;

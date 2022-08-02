@@ -14,6 +14,36 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.bundle.min.js" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" type="module"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/last-icon@1.3.3/last-icon.min.js"></script>
+    
+    <style>
+      l-i {
+        --size: 1em;
+        display: -webkit-inline-box;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        width: var(--size);
+        height: var(--size);
+        vertical-align: middle;
+      }
+      l-i svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      l-i i {
+        font-size: var(--size) !important;
+        color: currentColor;
+      }
+
+      p l-i:not([size]),
+      button l-i:not([size]),
+      a l-i:not([size]),
+      span l-i:not([size]) {
+        vertical-align: -0.125em;
+      }
+    </style>
+
     <script type="module">
       // This need to execute before bs companion is loaded, because the trigger event will fire
       // as soon as the element is defined
@@ -48,7 +78,6 @@
         console.log("defined");
       });
     </script>
-
   </head>
 
   <body>
@@ -72,7 +101,7 @@
       <div class="demo" style="min-height: 400px">
         <header>
           <bs-tabs responsive>
-            <ul class="nav nav-tabs" id="myTab" role="tablist" style="width:100%">
+            <ul class="nav nav-tabs" id="myTab" role="tablist" style="width: 100%">
               <li class="nav-item" role="presentation">
                 <button
                   class="nav-link active"
@@ -83,6 +112,8 @@
                   role="tab"
                   aria-controls="home"
                   aria-selected="true">
+                  
+                  <l-i name="home" set="mi"></l-i>
                   Home
                 </button>
               </li>

@@ -33,7 +33,7 @@ bs-tabs {
   &.bs-tabs-dropdown {
     .nav-link.active {
       @include caret();
-      min-width: calc(var(--min-width) + 20px);
+      // min-width: calc(var(--min-width) + 20px);
     }
     .nav-link:not(.active) {
       display: none;
