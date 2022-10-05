@@ -125,7 +125,8 @@ export default function toaster(attr) {
     "hidden.bs.toast",
     () => {
       inst.dispose();
-      toast.remove();
+      // can cause issue in complete handler in bs5
+      // toast.remove();
     },
     {
       once: true,
