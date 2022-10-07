@@ -64,7 +64,7 @@ class BsTabs extends HTMLElement {
 
       newChild.append(newChildLink);
       newChildLink.linkElement = link;
-      newChildLink.classList.add(...[dropdownItemClass]);
+      newChildLink.classList.add(...[dropdownItemClass, "text-wrap"]);
       newChildLink.innerHTML = link.innerHTML.replace(/<br[^>]*>/, " "); // Replace any BR
       newChildLink.setAttribute("href", href);
       if (link.classList.contains(disabledClass) || link.hasAttribute(disabledClass)) {

@@ -10,5 +10,6 @@ This packages includes:
 - Responsive Table: Nice responsive tables without ugly scrollbars
 - BS Tabs: Improved tabs, that collapse down to a dropdown and with linkable tabs
 - Toaster: Generate beautiful toast message without markup
+- Toasts: Easily generate basic ui toasts (success, warning, error) and enforce default styling
 - Modalizer: Generate beautiful modals without markup
 - Form Validator: Consistent validator that works across tabs and accordions

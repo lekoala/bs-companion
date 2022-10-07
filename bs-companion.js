@@ -19,7 +19,7 @@ window.modalizer = modalizer;
 window.modalizerConfirm = modalizerConfirm;
 window.FormValidator = FormValidator;
 
-const bsCompanion = {
+const BsCompanion = {
   BsTabs,
   BsToggle,
   ResponsiveTable,
@@ -29,4 +29,4 @@ const bsCompanion = {
   FormValidator,
   Toasts,
 };
-export default bsCompanion;
+export default BsCompanion;

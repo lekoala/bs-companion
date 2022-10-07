@@ -9,6 +9,18 @@
 @import "form-validator.scss";
 @import "modalizer.scss";
 
+// Prevent issue on small screen
+.toast {
+  --bs-toast-max-width: min(90vw, 320px);
+}
+
+// Fix subpixel rounding for tabs when zooming
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  border-bottom-width: 1.5px;
+  margin-bottom: calc(-1 * var(--bs-nav-tabs-border-width) - 0.5px);
+}
+
 // Avoid FOUC
 responsive-table,
 bs-tabs {
@@ -33,7 +45,6 @@ bs-tabs {
   &.bs-tabs-dropdown {
     .nav-link.active {
       @include caret();
-      white-space: nowrap;
       // min-width: calc(var(--min-width) + 20px);
     }
     .nav-link:not(.active) {

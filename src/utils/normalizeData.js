@@ -23,7 +23,7 @@ export default function normalizeData(val) {
   if (val.indexOf("[") === 0 || val.indexOf("{") === 0) {
     try {
       // In case we have only single quoted values
-      if (val.indexOf('"') === -1) {
+      if (!val.includes('"')) {
         val = val.replaceAll("'", '"');
       }
       return JSON.parse(decodeURIComponent(val));

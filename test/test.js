@@ -1,5 +1,5 @@
 import test from "ava";
-import * as BsCompanion from "../bs-companion.js";
+import { default as BsCompanion } from "../bs-companion.js";
 
 test("tabs is registered", (t) => {
   const inst = customElements.get("bs-tabs");
