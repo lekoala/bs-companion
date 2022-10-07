@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Parse data attribute and return properly typed data
  * @param {string} val

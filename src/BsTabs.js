@@ -1,5 +1,3 @@
-"use strict";
-
 const tabsSelector = ".nav";
 const navLinkSelector = ".nav-link";
 const dropdownItemClass = "dropdown-item";

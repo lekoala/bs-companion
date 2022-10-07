@@ -1,5 +1,3 @@
-"use strict";
-
 import normalizeData from "./utils/normalizeData.js";
 
 const resizeObserver = new ResizeObserver((entries) => {

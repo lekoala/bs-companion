@@ -19,11 +19,54 @@
     <script src="./dist/bs-companion.min.js" type="module"></script>
 
     <script type="module">
-      let button = document.querySelector(".js-toast");
-      button.addEventListener("click", (ev) => {
+      document.querySelector(".js-toast").addEventListener("click", (ev) => {
         toaster({
           body: "Hello world",
         });
+      });
+      document.querySelector(".error-toast")?.addEventListener("click", (ev) => {
+        Toasts.soft = false;
+        Toasts.gradient = false;
+        Toasts.error("Hello world");
+      });
+      document.querySelector(".warning-toast")?.addEventListener("click", (ev) => {
+        Toasts.soft = false;
+        Toasts.gradient = false;
+        Toasts.warning("Hello world");
+      });
+      document.querySelector(".success-toast")?.addEventListener("click", (ev) => {
+        Toasts.soft = false;
+        Toasts.gradient = false;
+        Toasts.success("Hello world");
+      });
+      document.querySelector(".soft-error-toast")?.addEventListener("click", (ev) => {
+        Toasts.soft = true;
+        Toasts.gradient = false;
+        Toasts.error("Hello world");
+      });
+      document.querySelector(".soft-warning-toast")?.addEventListener("click", (ev) => {
+        Toasts.soft = true;
+        Toasts.gradient = false;
+        Toasts.warning("Hello world");
+      });
+      document.querySelector(".soft-success-toast")?.addEventListener("click", (ev) => {
+        Toasts.soft = true;
+        Toasts.gradient = false;
+        Toasts.success("Hello world", {
+          header: "Success!",
+        });
+      });
+      document.querySelector(".gradient-error-toast")?.addEventListener("click", (ev) => {
+        Toasts.gradient = true;
+        Toasts.error("Hello world");
+      });
+      document.querySelector(".gradient-warning-toast")?.addEventListener("click", (ev) => {
+        Toasts.gradient = true;
+        Toasts.warning("Hello world");
+      });
+      document.querySelector(".gradient-success-toast")?.addEventListener("click", (ev) => {
+        Toasts.gradient = true;
+        Toasts.success("Hello world");
       });
     </script>
   </head>
@@ -35,6 +78,33 @@
       <hr />
       <h2>Toaster</h2>
       <button class="btn btn-primary js-toast">Add toast</button>
+      <hr />
+      <p>
+        Regular styles. Use
+        <code>Toasts</code>
+        class for ease of use.
+      </p>
+      <button class="btn btn-success success-toast">Success toast</button>
+      <button class="btn btn-warning warning-toast">Warning toast</button>
+      <button class="btn btn-danger error-toast">Error toast</button>
+      <hr />
+      <p>
+        Soft styles. Toggle with
+        <code>Toasts.soft</code>
+        property.
+      </p>
+      <button class="btn btn-success soft-success-toast">Success toast</button>
+      <button class="btn btn-warning soft-warning-toast">Warning toast</button>
+      <button class="btn btn-danger soft-error-toast">Error toast</button>
+      <hr />
+      <p>
+        Gradient styles. Toggle with
+        <code>Toasts.gradient</code>
+        property.
+      </p>
+      <button class="btn btn-success gradient-success-toast">Success toast</button>
+      <button class="btn btn-warning gradient-warning-toast">Warning toast</button>
+      <button class="btn btn-danger gradient-error-toast">Error toast</button>
     </div>
   </body>
 </html>

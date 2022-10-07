@@ -1,5 +1,3 @@
-"use strict";
-
 function sortByPriority(list) {
   return Array.from(list).sort(function (a, b) {
     a = a.dataset.priority || 0;
@@ -101,7 +99,7 @@ class ResponsiveTable extends HTMLElement {
   constructor() {
     // Always call super first in constructor
     super();
-    
+
     this.style.display = "block"; // Otherwise resize doesn't happen
     this.style.overflowX = "hidden"; // Prevent scrollbars from appearing
 

@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Create a toast object
  *
@@ -55,13 +53,6 @@ export default function toaster(attr) {
   btnClose.ariaLabel = attr.buttonLabel;
   btnClose.setAttribute("data-bs-dismiss", "toast");
 
-  if (attr.header) {
-    const toastHeader = document.createElement("div");
-    toastHeader.className = `toast-header`;
-    toastHeader.innerHTML = `<div class="d-flex align-items-center flex-grow-1">${attr.header}</div></div>`;
-    toastHeader.firstChild.append(btnClose);
-  }
-
   const toastBody = document.createElement("div");
   toastBody.className = `toast-body`;
   toastBody.innerHTML = `<div class="d-flex w-100"><div class="flex-grow-1">${attr.body}</div></div></div>`;
@@ -71,17 +62,28 @@ export default function toaster(attr) {
 
   const toast = document.createElement("div");
   toast.id = attr.id || "toast-" + Date.now();
-  toast.className = `position-relative toast ${attr.className} ${attr.gap}`;
+  toast.className = `position-relative toast border-0 bg-white ${attr.gap}`;
   toast.role = "alert";
   toast.ariaLive = "assertive";
   toast.ariaAtomic = "true";
   if (attr.animation) {
     toast.style[animateFrom] = "-96px";
   }
+
+  // Wrap in a bg div (for opacity support)
+  const toastWrapper = document.createElement("div");
+  toastWrapper.className = `${attr.className}`;
+  toastWrapper.style.borderRadius = `var(--bs-toast-border-radius)`;
+  toast.append(toastWrapper);
+
   if (attr.header) {
-    toast.append(toastHeader);
+    const toastHeader = document.createElement("div");
+    toastHeader.className = `toast-header`;
+    toastHeader.innerHTML = `<div class="d-flex align-items-center justify-content-between flex-grow-1">${attr.header}</div></div>`;
+    toastHeader.firstChild.append(btnClose);
+    toastWrapper.append(toastHeader);
   }
-  toast.append(toastBody);
+  toastWrapper.append(toastBody);
 
   // Check if we have a container in place for the given placement or create one
   let toastContainer = document.querySelector(`.toast-container.${attr.placement}`);
@@ -124,9 +126,10 @@ export default function toaster(attr) {
   toast.addEventListener(
     "hidden.bs.toast",
     () => {
+      // can cause issue with bs5
+      // @link https://github.com/twbs/bootstrap/issues/37265
       inst.dispose();
-      // can cause issue in complete handler in bs5
-      // toast.remove();
+      toast.remove();
     },
     {
       once: true,
