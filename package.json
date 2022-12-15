@@ -45,8 +45,8 @@
     "bootstrap": "^5.2"
   },
   "devDependencies": {
-    "@happy-dom/global-registrator": "^7.3.0",
-    "ava": "^4.3.3",
-    "esbuild": "^0.15.10"
+    "@happy-dom/global-registrator": "^8.1.0",
+    "ava": "^5.1.0",
+    "esbuild": "^0.16.7"
   }
 }

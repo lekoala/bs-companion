@@ -60,4 +60,9 @@ responsive-table {
     white-space: nowrap;
     text-overflow: ellipsis;
   }
+
+  // @link https://stackoverflow.com/questions/71674803/html-tables-has-a-weird-bold-horizontal-line-due-to-border-collapse-property/71703247#71703247
+  &.fix-borders .table > :not(caption) > * > * {
+    border-bottom-width: 0.1px;
+  }
 }

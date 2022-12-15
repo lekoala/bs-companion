@@ -48,7 +48,7 @@
         attributes.
       </p>
       <div class="demo">
-        <responsive-table>
+        <responsive-table class="fix-borders">
           <table class="table">
             <thead>
               <tr>
@@ -102,7 +102,7 @@
       </p>
 
       <div class="demo">
-        <responsive-table>
+        <responsive-table class="fix-borders">
           <table class="table">
             <tr>
               <th scope="col">#</th>
@@ -122,11 +122,7 @@
             </tr>
             <tr>
               <th scope="row">1</th>
-              <td>
-                Mark
-                <div class="responsive-table-alt" data-index="5">Visible if responsive 1 is hidden</div>
-                <div class="responsive-table-alt" data-index="6">Visible if responsive 2 is hidden</div>
-              </td>
+              <td>Mark</td>
               <td>Otto</td>
               <td>@mdo</td>
               <td>This too if needed on small screen</td>
@@ -137,18 +133,24 @@
               <td>Jacob</td>
               <td>Thornton</td>
               <td>@fat</td>
-              <td></td>
-              <td></td>
+              <td>Jacob resp 1</td>
+              <td>Jacob resp 2</td>
             </tr>
             <tr>
               <th scope="row">3</th>
               <td colspan="2">Larry the Bird</td>
               <td>@twitter</td>
-              <td></td>
-              <td></td>
+              <td>Larry resp 1</td>
+              <td>Larry resp 2</td>
             </tr>
           </table>
         </responsive-table>
+
+        <p>
+          You can opt in for using the
+          <code>fix-borders</code>
+          class that can make up for incorrect border size due to DPI settings.
+        </p>
       </div>
     </div>
   </body>

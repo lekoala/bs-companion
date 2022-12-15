@@ -1,3 +1,7 @@
+/**
+ * @param {*} list
+ * @returns {Array}
+ */
 function sortByPriority(list) {
   return Array.from(list).sort(function (a, b) {
     a = a.dataset.priority || 0;
@@ -18,9 +22,11 @@ const resizeObserver = new ResizeObserver((entries) => {
 
     // The table is too big
     if (table.offsetWidth > size) {
+      // Find columns with priority
       let cols = container.cols.filter((col) => {
         return !col.hasAttribute("hidden") && col.hasAttribute("data-priority");
       });
+      // Or by position
       if (cols.length === 0) {
         cols = container.cols.filter((col) => {
           return !col.hasAttribute("hidden");
@@ -38,15 +44,8 @@ const resizeObserver = new ResizeObserver((entries) => {
         const colWidth = col.offsetWidth;
         const colIdx = col.ariaColIndex;
 
-        // Hide all columns with this index
-        table.querySelectorAll("[aria-colindex='" + colIdx + "']").forEach((idxCol) => {
-          idxCol.setAttribute("hidden", "hidden");
-        });
-
-        // Show alternative content
-        table.querySelectorAll(container.altSelector + "[data-index='" + colIdx + "']").forEach((node) => {
-          node.removeAttribute("hidden");
-        });
+        container.toggleColumn(colIdx, false);
+        container.toggleAltContent(colIdx, true);
 
         remaining -= colWidth;
         remaining = parseInt(remaining);
@@ -76,15 +75,8 @@ const resizeObserver = new ResizeObserver((entries) => {
             return;
           }
 
-          // Show all columns with this index
-          table.querySelectorAll("[aria-colindex='" + colIdx + "']").forEach((idxCol) => {
-            idxCol.removeAttribute("hidden");
-          });
-
-          // Hide alternative content
-          table.querySelectorAll(container.altSelector + "[data-index='" + colIdx + "']").forEach((node) => {
-            node.setAttribute("hidden", "hidden");
-          });
+          container.toggleColumn(colIdx, true);
+          container.toggleAltContent(colIdx, false);
 
           remaining += colWidth;
         });
@@ -114,9 +106,7 @@ class ResponsiveTable extends HTMLElement {
     this.cols = sortByPriority(this.cols);
 
     // Hide alt content
-    this.table.querySelectorAll(this.altSelector).forEach((node) => {
-      node.setAttribute("hidden", "hidden");
-    });
+    this.toggleAltContent(null, false);
   }
 
   connectedCallback() {
@@ -126,6 +116,29 @@ class ResponsiveTable extends HTMLElement {
 
   disconnectedCallback() {
     resizeObserver.unobserve(this);
+  }
+
+  toggleColumn(idx, show) {
+    const targetCols = this.table.querySelectorAll("[aria-colindex='" + idx + "']");
+    targetCols.forEach((targetCol) => {
+      if (show) {
+        targetCol.removeAttribute("hidden");
+      } else {
+        targetCol.setAttribute("hidden", "");
+      }
+    });
+  }
+
+  toggleAltContent(idx, show) {
+    const sel = idx ? this.altSelector + "[data-index='" + idx + "']" : this.altSelector;
+    const altNodes = this.table.querySelectorAll(sel);
+    altNodes.forEach((node) => {
+      if (show) {
+        node.removeAttribute("hidden");
+      } else {
+        node.setAttribute("hidden", "");
+      }
+    });
   }
 
   /**
