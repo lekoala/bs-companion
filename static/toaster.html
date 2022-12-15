@@ -24,6 +24,12 @@
           body: "Hello world",
         });
       });
+      document.querySelector(".js-toast-no-hide").addEventListener("click", (ev) => {
+        toaster({
+          body: "Hello world (no hide)",
+          autohide: false,
+        });
+      });
       document.querySelector(".error-toast")?.addEventListener("click", (ev) => {
         Toasts.soft = false;
         Toasts.gradient = false;
@@ -78,6 +84,7 @@
       <hr />
       <h2>Toaster</h2>
       <button class="btn btn-primary js-toast">Add toast</button>
+      <button class="btn btn-primary js-toast-no-hide">Add toast (no hide)</button>
       <hr />
       <p>
         Regular styles. Use

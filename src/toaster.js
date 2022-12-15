@@ -37,6 +37,7 @@ export default function toaster(attr) {
   // Split placement string into positional css elements
   const pos = attr.placement.split("-");
   const posUnit = pos[1] == "center" ? "50%" : "0";
+  const animateOffset = "-96px";
   const animateFrom = pos[1] == "center" ? pos[0] : pos[1];
   if (pos[1] == "center") {
     pos[1] = "left";
@@ -67,7 +68,7 @@ export default function toaster(attr) {
   toast.ariaLive = "assertive";
   toast.ariaAtomic = "true";
   if (attr.animation) {
-    toast.style[animateFrom] = "-96px";
+    toast.style[animateFrom] = animateOffset;
   }
 
   // Wrap in a bg div (for opacity support)
@@ -121,15 +122,25 @@ export default function toaster(attr) {
       once: true,
     }
   );
+  toast.addEventListener("hide.bs.toast", () => {
+    if (attr.animation) {
+      setTimeout(() => {
+        // Helps dealing with stacked toasts that don't look good when hiding
+        toast.style.transform = `scale(0) translateY(${animateOffset})`;
+      }, 0);
+    }
+  });
 
   // Cleanup instead of just hiding
   toast.addEventListener(
     "hidden.bs.toast",
     () => {
-      // can cause issue with bs5
+      // prevent issues when double clicking
       // @link https://github.com/twbs/bootstrap/issues/37265
-      inst.dispose();
-      toast.remove();
+      setTimeout(() => {
+        inst.dispose();
+        toast.remove();
+      }, 1000);
     },
     {
       once: true,
