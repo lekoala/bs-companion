@@ -125,8 +125,11 @@ export default function modalizer(attr = {}) {
     () => {
       el.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((n) => bootstrap.Tooltip.getInstance(n).dispose());
       el.querySelectorAll('[data-bs-toggle="popover"]').forEach((n) => bootstrap.Popover.getInstance(n).dispose());
-      modal.dispose();
-      el.remove();
+      // prevent cleanup issue due to animation
+      setTimeout(() => {
+        modal.dispose();
+        el.remove();
+      }, 1000);
     },
     { once: true }
   );
