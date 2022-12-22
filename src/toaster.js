@@ -1,21 +1,26 @@
 /**
+ * @typedef ToasterOptions
+ * @property {string} [body] Body content. Can also be filled with html tags (eg: Hello <b>World</b>)
+ * @property {string} [header] (none) Header content. Can also be filled with html tags (eg : <h6 class="mb-0">Success</h6>)
+ * @property {string} [className] (none) Additional classes for toast element (eg: 'border-0 bg-danger text-white')
+ * @property {boolean} [animation] (true) Apply transition to the toast
+ * @property {boolean} [autohide] (true) Auto hide the toast
+ * @property {number} [delay] (5000) Delay hiding the toast (ms)
+ * @property {string} [id] (toast-{ts}) Specific id if required
+ * @property {string} [gap] (1rem) Gap size
+ * @property {string} [placement] (top-right) Corner position of toast. Available values: top-right, top-center, top-left, bottom-right, bottom-center, bottom-left
+ * @property {boolean} [btnClose] (true) Show close button
+ * @property {string} [buttonLabel] (Close Notification) Close button label
+ * @property {string} [buttonClassName] (none) Additional classes for close button
+ */
+
+/**
  * Create a toast object
  *
  * Stacking demo
  * @link https://codepen.io/lekoalabe/pen/poKMprj
  *
- * @param {string} attr.body Body content. Can also be filled with html tags (eg: Hello <b>World</b>)
- * @param {string} attr.header (none) Header content. Can also be filled with html tags (eg : <h6 class="mb-0">Success</h6>)
- * @param {string} attr.className (none) Additional classes for toast element (eg: 'border-0 bg-danger text-white')
- * @param {boolean} attr.animation (true) Apply transition to the toast
- * @param {boolean} attr.autohide (true) Auto hide the toast
- * @param {number} attr.delay (5000) Delay hiding the toast (ms)
- * @param {string} attr.id (toast-{ts}) Specific id if required
- * @param {string} attr.gap (1rem) Gap size
- * @param {string} attr.placement (top-right) Corner position of toast. Available values: top-right, top-center, top-left, bottom-right, bottom-center, bottom-left
- * @param {boolean} attr.btnClose (true) Show close button
- * @param {string} attr.buttonLabel (Close Notification) Close button label
- * @param {string} attr.buttonClassName (none) Additional classes for close button
+ * @param {ToasterOptions} attr
  * @returns {bootstrap.Toast}
  */
 export default function toaster(attr) {
@@ -26,7 +31,9 @@ export default function toaster(attr) {
     };
   }
 
-  // Set defaults
+  /**
+   * @type {ToasterOptions}
+   */
   const defaults = {
     gap: "1rem", // this is 1.5rem in bs 5.2 and .75rem in 5.0/5.1
     className: "",
@@ -74,7 +81,7 @@ export default function toaster(attr) {
   toastBody.className = `toast-body`;
   toastBody.innerHTML = `<div class="d-flex w-100"><div class="flex-grow-1">${attr.body}</div></div></div>`;
   if (!attr.header) {
-    toastBody.firstChild.append(btnClose);
+    toastBody.firstChild.appendChild(btnClose);
   }
 
   const toast = document.createElement("div");
@@ -98,15 +105,20 @@ export default function toaster(attr) {
     const toastHeader = document.createElement("div");
     toastHeader.className = `toast-header`;
     toastHeader.innerHTML = `<div class="d-flex align-items-center justify-content-between flex-grow-1">${attr.header}</div></div>`;
-    toastHeader.firstChild.append(btnClose);
+    toastHeader.firstChild.appendChild(btnClose);
     toastWrapper.append(toastHeader);
   }
   toastWrapper.append(toastBody);
 
   // Check if we have a container in place for the given placement or create one
+  /**
+   * @type {HTMLElement}
+   */
   let toastContainer = document.querySelector(`.toast-container.${attr.placement}`);
   if (!toastContainer) {
-    const styles = `${posV}:0;${startPos}:${posUnit};${posUnit === "50%" ? "transform: translateX(-50%)" : ""};z-index:1081;position:fixed;padding:${attr.gap};`;
+    const styles = `${posV}:0;${startPos}:${posUnit};${posUnit === "50%" ? "transform: translateX(-50%)" : ""};z-index:1081;position:fixed;padding:${
+      attr.gap
+    };`;
 
     toastContainer = document.createElement("div");
     toastContainer.className = `toast-container toaster-container ${attr.placement}`;
@@ -116,7 +128,8 @@ export default function toaster(attr) {
   }
 
   // Append to container and init
-  toastContainer.append(toast);
+  toastContainer.appendChild(toast);
+  //@ts-ignore
   const inst = new bootstrap.Toast(toast, {
     animation: attr.animation,
     autohide: attr.autohide,

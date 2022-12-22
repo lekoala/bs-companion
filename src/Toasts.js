@@ -1,59 +1,90 @@
 import toaster from "./toaster.js";
 
-let soft = false;
-let gradient = false;
+/**
+ * @typedef BaseToastsOptions
+ * @property {string} [baseClassName]
+ * @typedef {import("./toaster.js").ToasterOptions & BaseToastsOptions} ToastsOptions
+ */
 
-function styles() {
-  if (gradient) {
-    return "bg-gradient text-white";
-  }
-  return soft ? "text-dark bg-opacity-10" : "text-white";
-}
+/**
+ * @type {ToastsOptions}
+ */
+const defaultOptions = {
+  baseClassName: "text-white",
+};
 
+/**
+ * Manage toast message using common styling and default options
+ */
 class Toasts {
-  static get gradient() {
-    return gradient;
+  static getOption(k) {
+    return defaultOptions[k] ?? null;
   }
 
-  static set gradient(v) {
-    gradient = !!v;
+  static setOption(k, v) {
+    defaultOptions[k] = v;
   }
 
-  static get soft() {
-    return soft;
+  /**
+   * @link https://getbootstrap.com/docs/5.2/utilities/background/#background-gradient
+   */
+  static enableGradient() {
+    defaultOptions.baseClassName = "bg-gradient text-white";
   }
 
-  static set soft(v) {
-    soft = !!v;
+  static enableSoft() {
+    defaultOptions.baseClassName = "text-dark bg-opacity-10";
   }
 
+  static enableDefault() {
+    defaultOptions.baseClassName = "text-white";
+  }
+
+  /**
+   * @param {string} msg
+   * @param {import("./toaster.js").ToasterOptions} opts
+   */
   static toast(msg, opts = {}) {
+    opts = Object.assign({}, defaultOptions, opts);
     opts.body = msg;
+    opts.className = opts.className + " " + defaultOptions.baseClassName;
     toaster(opts);
   }
 
+  /**
+   * @param {string} msg
+   * @param {import("./toaster.js").ToasterOptions} opts
+   */
   static success(msg, opts = {}) {
     this.toast(msg, {
       ...{
-        className: "bg-success " + styles(),
+        className: "bg-success",
       },
       ...opts,
     });
   }
 
+  /**
+   * @param {string} msg
+   * @param {import("./toaster.js").ToasterOptions} opts
+   */
   static error(msg, opts = {}) {
     this.toast(msg, {
       ...{
-        className: "bg-danger " + styles(),
+        className: "bg-danger",
       },
       ...opts,
     });
   }
 
+  /**
+   * @param {string} msg
+   * @param {import("./toaster.js").ToasterOptions} opts
+   */
   static warning(msg, opts = {}) {
     this.toast(msg, {
       ...{
-        className: "bg-warning " + styles(),
+        className: "bg-warning",
       },
       ...opts,
     });

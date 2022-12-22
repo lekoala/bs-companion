@@ -20,6 +20,16 @@
   display: block !important;
 }
 
+// Prevent header styling issue
+.toast.toaster .toast-header {
+  color: unset;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.toast.toaster .bg-opacity-10 .toast-header {
+  background-color: rgba(255,255,255,0.5);
+}
+
 // Fix subpixel rounding for tabs when zooming
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
