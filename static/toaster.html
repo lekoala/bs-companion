@@ -30,6 +30,13 @@
           autohide: false,
         });
       });
+      document.querySelector(".js-toast-bottom").addEventListener("click", (ev) => {
+        toaster({
+          body: "Hello world from bottom corner (no hide)",
+          autohide: false,
+          placement: 'bottom-right'
+        });
+      });
       document.querySelector(".error-toast")?.addEventListener("click", (ev) => {
         Toasts.soft = false;
         Toasts.gradient = false;
@@ -85,6 +92,7 @@
       <h2>Toaster</h2>
       <button class="btn btn-primary js-toast">Add toast</button>
       <button class="btn btn-primary js-toast-no-hide">Add toast (no hide)</button>
+      <button class="btn btn-primary js-toast-bottom">Add toast to bottom corner (no hide)</button>
       <hr />
       <p>
         Regular styles. Use

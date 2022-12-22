@@ -11,7 +11,7 @@
  * @param {boolean} attr.autohide (true) Auto hide the toast
  * @param {number} attr.delay (5000) Delay hiding the toast (ms)
  * @param {string} attr.id (toast-{ts}) Specific id if required
- * @param {string} attr.gap (m-3) Gap class
+ * @param {string} attr.gap (1rem) Gap size
  * @param {string} attr.placement (top-right) Corner position of toast. Available values: top-right, top-center, top-left, bottom-right, bottom-center, bottom-left
  * @param {boolean} attr.btnClose (true) Show close button
  * @param {string} attr.buttonLabel (Close Notification) Close button label
@@ -27,27 +27,37 @@ export default function toaster(attr) {
   }
 
   // Set defaults
-  attr.gap = attr.gap ?? "m-3";
-  attr.className = attr.className ?? "";
-  attr.placement = attr.placement ?? "top-center";
-  attr.btnClose = attr.btnClose ?? true;
-  attr.buttonLabel = attr.buttonLabel ?? "Close Notification";
-  attr.buttonClassName = attr.buttonClassName ?? "";
-  attr.animation = attr.animation ?? true;
-  attr.autohide = attr.autohide ?? true;
-  attr.delay = attr.delay ?? 5000;
+  const defaults = {
+    gap: "1rem", // this is 1.5rem in bs 5.2 and .75rem in 5.0/5.1
+    className: "",
+    placement: "top-center",
+    btnClose: true,
+    buttonLabel: "Close Notification",
+    buttonClassName: "",
+    animation: true,
+    autohide: true,
+    delay: 5000,
+  };
+  attr = Object.assign({}, defaults, attr);
 
   const once = {
     once: true,
   };
+  const ucfirst = (string) => {
+    return string[0].toUpperCase() + string.substring(1);
+  };
 
+  // Container placement
   // Split placement string into positional css elements
-  const pos = attr.placement.split("-");
-  const posUnit = pos[1] == "center" ? "50%" : "0";
-  const animateFrom = pos[1] == "center" ? pos[0] : pos[1];
-  if (pos[1] == "center") {
-    pos[1] = "left";
-  }
+  // posV: top or bottom
+  // posH: left, center or right
+  const [posV, posH] = attr.placement.split("-");
+  // In the middle means 50%
+  const posUnit = posH == "center" ? "50%" : "0";
+  const animateFrom = "margin" + ucfirst(posV);
+  const positionFrom = "margin" + ucfirst(posV == "top" ? "bottom" : "top");
+  // We set posUnit to 50%, then position from left
+  const startPos = posH == "center" ? "left" : posH;
 
   // Auto white close
   if (attr.className.includes("text-white") && !attr.buttonClassName) {
@@ -69,10 +79,11 @@ export default function toaster(attr) {
 
   const toast = document.createElement("div");
   toast.id = attr.id || "toast-" + Date.now();
-  toast.className = `position-relative toast toaster border-0 bg-white ${attr.gap}`;
+  toast.className = `toast toaster border-0 bg-white`;
   toast.role = "alert";
   toast.ariaLive = "assertive";
   toast.ariaAtomic = "true";
+  toast.style[positionFrom] = attr.gap;
   if (attr.animation) {
     toast.style[animateFrom] = "-48px";
   }
@@ -95,10 +106,10 @@ export default function toaster(attr) {
   // Check if we have a container in place for the given placement or create one
   let toastContainer = document.querySelector(`.toast-container.${attr.placement}`);
   if (!toastContainer) {
-    const styles = `${pos[0]}:0;${pos[1]}:${posUnit};${posUnit === "50%" ? "transform: translateX(-50%)" : ""};z-index:1081`;
+    const styles = `${posV}:0;${startPos}:${posUnit};${posUnit === "50%" ? "transform: translateX(-50%)" : ""};z-index:1081;position:fixed;padding:${attr.gap};`;
 
     toastContainer = document.createElement("div");
-    toastContainer.className = `toast-container position-fixed ${attr.placement}`;
+    toastContainer.className = `toast-container toaster-container ${attr.placement}`;
     toastContainer.style.cssText = styles;
 
     document.body.insertAdjacentElement("afterbegin", toastContainer);
@@ -133,7 +144,7 @@ export default function toaster(attr) {
         setTimeout(() => {
           // Helps dealing with stacked toasts that jumps when hiding
           const styles = window.getComputedStyle(toast);
-          const margin = parseFloat(styles["marginTop"]) + parseFloat(styles["marginBottom"]);
+          const margin = parseFloat(styles["marginBottom"]);
           const height = Math.ceil(toast.offsetHeight + margin);
           toast.style.transform = `scale(0)`;
           toast.style.marginTop = `-${height}px`;
