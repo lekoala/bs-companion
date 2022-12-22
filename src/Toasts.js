@@ -89,6 +89,19 @@ class Toasts {
       ...opts,
     });
   }
+
+  /**
+   * @param {string} msg
+   * @param {import("./toaster.js").ToasterOptions} opts
+   */
+  static info(msg, opts = {}) {
+    this.toast(msg, {
+      ...{
+        className: "bg-info",
+      },
+      ...opts,
+    });
+  }
 }
 
 export default Toasts;
