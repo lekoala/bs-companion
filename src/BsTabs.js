@@ -8,6 +8,10 @@ const disabledClass = "disabled";
 
 const resizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
+    /**
+     * @type {BsTabs}
+     */
+    //@ts-ignore
     const container = entry.target;
     const tabs = container.tabs;
     const offset = 30; // We need some space for the caret
@@ -16,9 +20,10 @@ const resizeObserver = new ResizeObserver((entries) => {
     const contentBoxSize = Array.isArray(entry.contentBoxSize) ? entry.contentBoxSize[0] : entry.contentBoxSize;
     const size = parseInt(contentBoxSize.inlineSize) - offset;
 
-    if (size < tabs.dataset.baseWidth) {
+    const baseWidth = parseInt(tabs.dataset.baseWidth);
+    if (size < baseWidth) {
       container.classList.add(tabsDropdownClass);
-    } else if (size >= tabs.dataset.baseWidth) {
+    } else if (size >= baseWidth) {
       container.classList.remove(tabsDropdownClass);
       container.menu.style.display = "none";
     }
@@ -43,17 +48,17 @@ class BsTabs extends HTMLElement {
   setBaseWidth() {
     let totalWidth = 0;
     this.querySelectorAll("li").forEach((tab) => {
-      tab.dataset.baseWidth = tab.offsetWidth;
+      tab.dataset.baseWidth = "" + tab.offsetWidth;
       totalWidth += parseInt(tab.dataset.baseWidth);
     });
-    this.tabs.dataset.baseWidth = totalWidth;
+    this.tabs.dataset.baseWidth = "" + totalWidth;
   }
 
   createMobileMenu() {
     this.menu = document.createElement("ul");
     this.menu.classList.add("dropdown-menu");
-    this.querySelectorAll("li").forEach((tab) => {
-      const link = tab.querySelector("a, button");
+    this.querySelectorAll("li").forEach((dropdownLink) => {
+      const link = dropdownLink.querySelector("a") || dropdownLink.querySelector("button");
       const newChild = document.createElement("li");
       const newChildLink = document.createElement("a");
       const href = link.dataset.bsTarget || link.getAttribute("href");
@@ -63,7 +68,7 @@ class BsTabs extends HTMLElement {
       // link.style.setProperty("--min-width", `${tab.dataset.baseWidth}px`);
 
       newChild.append(newChildLink);
-      newChildLink.linkElement = link;
+      newChildLink.dataset.link = link.getAttribute("id");
       newChildLink.classList.add(...[dropdownItemClass, "text-wrap"]);
       newChildLink.innerHTML = link.innerHTML.replace(/<br[^>]*>/, " "); // Replace any BR
       newChildLink.setAttribute("href", href);
@@ -92,7 +97,9 @@ class BsTabs extends HTMLElement {
   }
 
   handleDropdownClick(dropdownLink) {
-    dropdownLink.linkElement.dispatchEvent(new Event("click", { bubbles: true }));
+    console.log(dropdownLink.dataset.link);
+    const linkElement = document.getElementById(dropdownLink.dataset.link);
+    linkElement.dispatchEvent(new Event("click", { bubbles: true }));
     this.menu.style.display = "none";
   }
 
@@ -132,9 +139,14 @@ class BsTabs extends HTMLElement {
    * Persist hash in forms in case it gets submitted to allow proper redirection
    */
   persistHash() {
-    document.querySelectorAll("input[name=_hash]").forEach((input) => {
-      input.value = document.location.hash;
-    });
+    document.querySelectorAll("input[name=_hash]").forEach(
+      /**
+       * @param {HTMLInputElement} input
+       */
+      (input) => {
+        input.value = document.location.hash;
+      }
+    );
   }
 
   /**
@@ -150,6 +162,9 @@ class BsTabs extends HTMLElement {
     const parts = hash.split("__").slice(0, -1);
     parts.push(hash);
     parts.forEach((part) => {
+      /**
+       * @type {HTMLElement}
+       */
       const activeTab = this.querySelector("[data-bs-target='" + part + "']");
       if (activeTab) {
         this.setActiveTab(activeTab);
@@ -169,20 +184,27 @@ class BsTabs extends HTMLElement {
     }
     // If bootstrap is already defined, make sure to show the proper tab
     // Otherwise, bootstrap will pick up the active class
+    //@ts-ignore
     if (typeof bootstrap !== "undefined") {
+      //@ts-ignore
       const inst = bootstrap.Tab.getInstance(tab) || new bootstrap.Tab(tab);
       inst.show();
     }
   }
 
   removeActiveTab() {
-    this.querySelectorAll(navLinkSelector + "." + activeClass).forEach((tab) => {
-      tab.classList.remove(activeClass);
-      const target = document.querySelector(tab.dataset.bsTarget);
-      if (target) {
-        target.classList.remove(...[activeClass, showClass]);
+    this.querySelectorAll(navLinkSelector + "." + activeClass).forEach(
+      /**
+       * @param {HTMLElement} tab
+       */
+      (tab) => {
+        tab.classList.remove(activeClass);
+        const target = document.querySelector(tab.dataset.bsTarget);
+        if (target) {
+          target.classList.remove(...[activeClass, showClass]);
+        }
       }
-    });
+    );
   }
 
   /**
@@ -197,6 +219,9 @@ class BsTabs extends HTMLElement {
       return;
     }
     // Get the first valid tab
+    /**
+     * @type {HTMLElement}
+     */
     const activeTab = this.tabs.querySelector(navLinkSelector + ":not([" + disabledClass + "]):not(." + disabledClass + ")");
     if (!activeTab) {
       return;
@@ -211,6 +236,9 @@ class BsTabs extends HTMLElement {
     if (!tab) {
       return; // not visible
     }
+    /**
+     * @type {HTMLElement}
+     */
     const target = document.querySelector(tab.dataset.bsTarget);
     if (!target) {
       return; // no valid target
@@ -225,9 +253,14 @@ class BsTabs extends HTMLElement {
       el.dispatchEvent(new Event(lazyEvent, { bubbles: true }));
     });
     // Is there any nested tab ?
-    target.querySelectorAll(navLinkSelector + "." + activeClass).forEach((nestedTab) => {
-      this.triggerLazyElements(nestedTab);
-    });
+    target.querySelectorAll(navLinkSelector + "." + activeClass).forEach(
+      /**
+       * @param {HTMLElement} nestedTab
+       */
+      (nestedTab) => {
+        this.triggerLazyElements(nestedTab);
+      }
+    );
   }
 
   /**
@@ -242,7 +275,7 @@ class BsTabs extends HTMLElement {
     if (this.hasAttribute("linkable")) {
       const hash = target.dataset.bsTarget;
       if (hash) {
-        const url = new URL(window.location);
+        const url = new URL(window.location.href);
         url.hash = hash;
         window.history.pushState({}, "", url);
         this.persistHash();
@@ -257,6 +290,9 @@ class BsTabs extends HTMLElement {
   }
 
   connectedCallback() {
+    /**
+     * @type {HTMLElement}
+     */
     this.tabs = this.querySelector(tabsSelector);
 
     this.addEventListener("show.bs.tab", this);

@@ -3,6 +3,7 @@ import normalizeData from "./utils/normalizeData.js";
 const resizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
     const el = entry.target;
+    //@ts-ignore
     const tooltip = bootstrap.Tooltip.getInstance(el) || new bootstrap.Tooltip(el, el.parentElement.options);
     const prop = normalizeData(getComputedStyle(el).getPropertyValue("--tooltip-enable").trim());
     if (prop) {
@@ -36,6 +37,7 @@ class BsToggle extends HTMLElement {
     }
     // Store options for later init
     this.options = options;
+    //@ts-ignore
     this.toggle = new bootstrap[cls](el, this.options);
     if (this.hasAttribute("mobile")) {
       resizeObserver.observe(el);

@@ -29,13 +29,14 @@
           showCancel: true,
           showConfirm: true,
         });
-        modal.element.addEventListener("modal.deny", (ev) => {
+        const el = modal.element || modal._element;
+        el.addEventListener("modal.deny", (ev) => {
           console.log("denied");
         });
-        modal.element.addEventListener("modal.confirm", (ev) => {
+        el.addEventListener("modal.confirm", (ev) => {
           console.log("confirm");
         });
-        modal.element.addEventListener("modal.cancel", (ev) => {
+        el.addEventListener("modal.cancel", (ev) => {
           console.log("canceled");
         });
       });

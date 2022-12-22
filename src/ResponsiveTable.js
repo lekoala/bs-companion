@@ -12,6 +12,10 @@ function sortByPriority(list) {
 
 const resizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
+    /**
+     * @type {ResponsiveTable}
+     */
+    //@ts-ignore
     const container = entry.target;
     const table = container.table;
     // check inlineSize (width) and not blockSize (height)
@@ -48,7 +52,6 @@ const resizeObserver = new ResizeObserver((entries) => {
         container.toggleAltContent(colIdx, true);
 
         remaining -= colWidth;
-        remaining = parseInt(remaining);
       });
     } else {
       const minWidth = 50;
@@ -145,16 +148,22 @@ class ResponsiveTable extends HTMLElement {
    * Ensure we have an index (starts at 1)
    */
   assignColIndex() {
-    this.table.dataset.baseWidth = this.table.offsetWidth;
-    this.querySelectorAll("tr").forEach((col) => {
+    this.table.dataset.baseWidth = "" + this.table.offsetWidth;
+    this.querySelectorAll("tr").forEach((row) => {
       let idx = 0;
-      col.querySelectorAll("th,td").forEach((col) => {
-        idx += col.hasAttribute("colspan") ? parseInt(col.getAttribute("colspan")) : 1;
-        if (!col.ariaColIndex) {
-          col.ariaColIndex = idx;
+
+      row.querySelectorAll("th,td").forEach(
+        /**
+         * @param {HTMLTableColElement} col
+         */
+        (col) => {
+          idx += col.hasAttribute("colspan") ? parseInt(col.getAttribute("colspan")) : 1;
+          if (!col.ariaColIndex) {
+            col.ariaColIndex = "" + idx;
+          }
+          col.dataset.baseWidth = "" + col.offsetWidth;
         }
-        col.dataset.baseWidth = col.offsetWidth;
-      });
+      );
     });
   }
 }

@@ -1,7 +1,7 @@
 /**
  * Parse data attribute and return properly typed data
  * @param {string} val
- * @returns {mixed}
+ * @returns {*}
  */
 export default function normalizeData(val) {
   // Bool
@@ -24,7 +24,7 @@ export default function normalizeData(val) {
     try {
       // In case we have only single quoted values
       if (!val.includes('"')) {
-        val = val.replaceAll("'", '"');
+        val = val.split("'").join('"');
       }
       return JSON.parse(decodeURIComponent(val));
     } catch {

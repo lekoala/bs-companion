@@ -21,34 +21,40 @@ class FormValidator {
         });
 
         // Show all invalid fields
-        Array.from(form.elements).forEach((el) => {
-          if (!el.checkValidity()) {
-            // Mark all tabs and accordions as invalid as well
-            let parent = el.parentElement;
-            let accordion = null;
-            while (parent && !parent.classList.contains("tab-pane")) {
-              if (parent.classList.contains("accordion-item")) {
-                accordion = parent;
+        Array.from(form.elements).forEach(
+          /**
+           * @param {HTMLInputElement} el
+           */
+          (el) => {
+            if (!el.checkValidity()) {
+              // Mark all tabs and accordions as invalid as well
+              let parent = el.parentElement;
+              let accordion = null;
+              while (parent && !parent.classList.contains("tab-pane")) {
+                if (parent.classList.contains("accordion-item")) {
+                  accordion = parent;
+                }
+                parent = parent.parentElement;
               }
-              parent = parent.parentElement;
-            }
-            if (parent && !parent.classList.contains("active")) {
-              const link = form.querySelector("[data-bs-target='#" + parent.getAttribute("id") + "']");
-              if (link) {
-                link.classList.add("is-invalid");
+              if (parent && !parent.classList.contains("active")) {
+                const link = form.querySelector("[data-bs-target='#" + parent.getAttribute("id") + "']");
+                if (link) {
+                  link.classList.add("is-invalid");
+                }
               }
-            }
-            if (accordion) {
-              accordion.classList.add("is-invalid");
+              if (accordion) {
+                accordion.classList.add("is-invalid");
+              }
             }
           }
-        });
+        );
 
         if (!form.checkValidity()) {
           event.preventDefault();
           event.stopPropagation();
           // Show message
           if (form.dataset.validationMessage) {
+            //@ts-ignore
             window.toaster({
               body: form.dataset.validationMessage,
               className: "border-0 bg-danger text-white",
@@ -62,9 +68,14 @@ class FormValidator {
     );
   }
   static init(selector = ".needs-validation") {
-    document.querySelectorAll(selector).forEach((form) => {
-      new FormValidator(form);
-    });
+    document.querySelectorAll(selector).forEach(
+      /**
+       * @param {HTMLFormElement} form
+       */
+      (form) => {
+        new FormValidator(form);
+      }
+    );
   }
 }
 

@@ -6,30 +6,35 @@ const checkIcon =
   '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>';
 
 /**
+ * @typedef ModalizerOptions
+ * @property {string} [body] Body content. Can also be filled with html tags (eg: Hello <b>World</b>)
+ * @property {string} [title] (none) Title content. Can also be filled with html tags (eg : <h6 class="mb-0">Success</h6>)
+ * @property {string} [id] (modal-{ts}) Specific id if required
+ * @property {boolean} [static] (false) Static backdrop
+ * @property {boolean} [scrollable] (true) Scrollable modal
+ * @property {boolean} [centered] (true) Centered modal
+ * @property {boolean} [animated] (true) Animated modal
+ * @property {boolean} [fullscreen] (false) Fullscreen modal
+ * @property {boolean} [showClose] (true)
+ * @property {boolean} [showConfirm] (false)
+ * @property {boolean} [showCancel] (false)
+ * @property {boolean} [showDeny] (false)
+ * @property {string} [closeLabel] (Close)
+ * @property {string} [confirmText] (v)
+ * @property {string} [confirmClass] (success)
+ * @property {string} [cancelText] (x)
+ * @property {string} [cancelClass] (light)
+ * @property {string} [denyText] (/)
+ * @property {string} [denyClass] (danger)
+ * @property {string} [size] (none) Size of the modal (sm|md|lg)
+ * @property {boolean} [showIcon] (true)
+ * @property {string} [icon] (alert)
+ */
+
+/**
  * Create a modal object.
  *
- * @param {string} attr.body Body content. Can also be filled with html tags (eg: Hello <b>World</b>)
- * @param {string} attr.title (none) Title content. Can also be filled with html tags (eg : <h6 class="mb-0">Success</h6>)
- * @param {string} attr.id (modal-{ts}) Specific id if required
- * @param {boolean} attr.static (false) Static backdrop
- * @param {boolean} attr.scrollable (true) Scrollable modal
- * @param {boolean} attr.centered (true) Centered modal
- * @param {boolean} attr.animated (true) Animated modal
- * @param {boolean} attr.fullscreen (false) Fullscreen modal
- * @param {boolean} attr.showClose (true)
- * @param {boolean} attr.showConfirm (false)
- * @param {boolean} attr.showCancel (false)
- * @param {boolean} attr.showDeny (false)
- * @param {string} attr.closeLabel (Close)
- * @param {string} attr.confirmText (v)
- * @param {string} attr.confirmClass (success)
- * @param {string} attr.cancelText (x)
- * @param {string} attr.cancelClass (light)
- * @param {string} attr.denyText (/)
- * @param {string} attr.denyClass (danger)
- * @param {string} attr.size (none) Size of the modal (sm|md|lg)
- * @param {string} attr.showIcon (true)
- * @param {string} attr.icon (alert)
+ * @param {ModalizerOptions} attr
  * @returns {bootstrap.Modal}
  */
 export default function modalizer(attr = {}) {
@@ -40,7 +45,9 @@ export default function modalizer(attr = {}) {
     };
   }
 
-  // Defaults
+  /**
+   * @type {ModalizerOptions}
+   */
   const defaults = {
     id: "modal-" + Date.now(),
     size: "",
@@ -63,7 +70,7 @@ export default function modalizer(attr = {}) {
     showIcon: true,
     icon: "warning",
   };
-  attr = Object.assign(defaults, attr);
+  attr = Object.assign({}, defaults, attr);
 
   // Build template
   let staticAttr = ` data-bs-backdrop="static" data-bs-keyboard="false"`;
@@ -95,7 +102,11 @@ export default function modalizer(attr = {}) {
   </div>
 </div>
 `;
-  let el = template.content.firstChild;
+  /**
+   * @type {HTMLElement}
+   */
+  //@ts-ignore
+  const el = template.content.firstChild;
   if (!attr.title) {
     el.querySelector(".modal-title").remove();
   }
@@ -118,12 +129,15 @@ export default function modalizer(attr = {}) {
     el.querySelector(".modal-actions").remove();
   }
   document.body.insertAdjacentElement("afterbegin", el);
+  //@ts-ignore
   let modal = new bootstrap.Modal(el);
   // Cleanup instead of just hiding
   el.addEventListener(
     "hidden.bs.modal",
     () => {
+      //@ts-ignore
       el.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((n) => bootstrap.Tooltip.getInstance(n).dispose());
+      //@ts-ignore
       el.querySelectorAll('[data-bs-toggle="popover"]').forEach((n) => bootstrap.Popover.getInstance(n).dispose());
       // prevent cleanup issue due to animation
       setTimeout(() => {
@@ -135,25 +149,32 @@ export default function modalizer(attr = {}) {
   );
 
   // Trigger hide
-  el.querySelectorAll(".modal-actions button").forEach((btn) => {
-    btn.addEventListener(
-      "click",
-      (ev) => {
-        modal.hide();
-        // Attach form data to the event
-        el.dispatchEvent(
-          new CustomEvent("modal." + btn.dataset.event, {
-            detail: new FormData(el.querySelector("form")),
-            bubbles: true,
-          })
-        );
-      },
-      { once: true }
-    );
-  });
+  el.querySelectorAll(".modal-actions button").forEach(
+    /**
+     * @param {HTMLButtonElement} btn
+     */
+    (btn) => {
+      btn.addEventListener(
+        "click",
+        (ev) => {
+          modal.hide();
+          // Attach form data to the event
+          el.dispatchEvent(
+            new CustomEvent("modal." + btn.dataset.event, {
+              detail: new FormData(el.querySelector("form")),
+              bubbles: true,
+            })
+          );
+        },
+        { once: true }
+      );
+    }
+  );
 
   // BSN needs explicit init
+  //@ts-ignore
   el.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((n) => bootstrap.Tooltip.getInstance(n) || new bootstrap.Tooltip(n));
+  //@ts-ignore
   el.querySelectorAll('[data-bs-toggle="popover"]').forEach((n) => bootstrap.Popover.getInstance(n) || new bootstrap.Popover(n));
 
   modal.show();
