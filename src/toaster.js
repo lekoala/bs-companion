@@ -1,6 +1,9 @@
 /**
  * Create a toast object
  *
+ * Stacking demo
+ * @link https://codepen.io/lekoalabe/pen/poKMprj
+ *
  * @param {string} attr.body Body content. Can also be filled with html tags (eg: Hello <b>World</b>)
  * @param {string} attr.header (none) Header content. Can also be filled with html tags (eg : <h6 class="mb-0">Success</h6>)
  * @param {string} attr.className (none) Additional classes for toast element (eg: 'border-0 bg-danger text-white')
@@ -34,10 +37,13 @@ export default function toaster(attr) {
   attr.autohide = attr.autohide ?? true;
   attr.delay = attr.delay ?? 5000;
 
+  const once = {
+    once: true,
+  };
+
   // Split placement string into positional css elements
   const pos = attr.placement.split("-");
   const posUnit = pos[1] == "center" ? "50%" : "0";
-  const animateOffset = "-96px";
   const animateFrom = pos[1] == "center" ? pos[0] : pos[1];
   if (pos[1] == "center") {
     pos[1] = "left";
@@ -63,12 +69,12 @@ export default function toaster(attr) {
 
   const toast = document.createElement("div");
   toast.id = attr.id || "toast-" + Date.now();
-  toast.className = `position-relative toast border-0 bg-white ${attr.gap}`;
+  toast.className = `position-relative toast toaster border-0 bg-white ${attr.gap}`;
   toast.role = "alert";
   toast.ariaLive = "assertive";
   toast.ariaAtomic = "true";
   if (attr.animation) {
-    toast.style[animateFrom] = animateOffset;
+    toast.style[animateFrom] = "-48px";
   }
 
   // Wrap in a bg div (for opacity support)
@@ -118,18 +124,24 @@ export default function toaster(attr) {
         }, 0);
       }
     },
-    {
-      once: true,
-    }
+    once
   );
-  toast.addEventListener("hide.bs.toast", () => {
-    if (attr.animation) {
-      setTimeout(() => {
-        // Helps dealing with stacked toasts that don't look good when hiding
-        toast.style.transform = `scale(0) translateY(${animateOffset})`;
-      }, 0);
-    }
-  });
+  toast.addEventListener(
+    "hide.bs.toast",
+    () => {
+      if (attr.animation) {
+        setTimeout(() => {
+          // Helps dealing with stacked toasts that jumps when hiding
+          const styles = window.getComputedStyle(toast);
+          const margin = parseFloat(styles["marginTop"]) + parseFloat(styles["marginBottom"]);
+          const height = Math.ceil(toast.offsetHeight + margin);
+          toast.style.transform = `scale(0)`;
+          toast.style.marginTop = `-${height}px`;
+        }, 0);
+      }
+    },
+    once
+  );
 
   // Cleanup instead of just hiding
   toast.addEventListener(
@@ -142,9 +154,7 @@ export default function toaster(attr) {
         toast.remove();
       }, 1000);
     },
-    {
-      once: true,
-    }
+    once
   );
 
   inst.show();
