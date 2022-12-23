@@ -144,7 +144,7 @@ export default function toaster(attr) {
         setTimeout(() => {
           const transition = parseFloat(getComputedStyle(toast).transitionDuration) * 1e3;
           toast.style.transition = `all ${transition * 4}ms cubic-bezier(0.165, 0.840, 0.440, 1.000), opacity ${transition}ms linear`;
-          toast.style[animateFrom] = 0;
+          toast.style[animateFrom] = "0px";
           toast.style.opacity = "1"; // This is required for BSN
         }, 0);
       }
@@ -162,6 +162,7 @@ export default function toaster(attr) {
           const height = Math.ceil(toast.offsetHeight + margin);
           toast.style.transform = `scale(0)`;
           toast.style.marginTop = `-${height}px`;
+          toast.style.opacity = "0"; // This is required for BSN
         }, 0);
       }
     },
