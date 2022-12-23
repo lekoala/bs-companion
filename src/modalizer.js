@@ -141,6 +141,7 @@ export default function modalizer(attr = {}) {
     "hide.bs.modal",
     () => {
       // As soon as it starts hiding, don't allow anymore clicks
+      // @link https://github.com/twbs/bootstrap/issues/37265
       el.style.pointerEvents = "none";
     },
     once
@@ -152,12 +153,7 @@ export default function modalizer(attr = {}) {
       el.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((n) => bootstrap.Tooltip.getInstance(n).dispose());
       //@ts-ignore
       el.querySelectorAll('[data-bs-toggle="popover"]').forEach((n) => bootstrap.Popover.getInstance(n).dispose());
-      // prevent cleanup issue due to animation
-      //@ts-ignore
-      const element = modal.element || modal._element;
-      if (element) {
-        modal.dispose();
-      }
+      modal.dispose();
       el.remove();
     },
     once

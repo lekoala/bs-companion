@@ -157,6 +157,7 @@ export default function toaster(attr) {
     "hide.bs.toast",
     () => {
       // As soon as it starts hiding, don't allow anymore clicks
+      // @link https://github.com/twbs/bootstrap/issues/37265
       toast.style.pointerEvents = "none";
       if (attr.animation) {
         setTimeout(() => {
@@ -176,14 +177,8 @@ export default function toaster(attr) {
   // Cleanup instead of just hiding
   toast.addEventListener(
     "hidden.bs.toast",
-    (ev) => {
-      // prevent issues when double clicking
-      // @link https://github.com/twbs/bootstrap/issues/37265
-      //@ts-ignore
-      const element = inst.element || inst._element;
-      if (element) {
-        inst.dispose();
-      }
+    () => {
+      inst.dispose();
       toast.remove();
     },
     once
