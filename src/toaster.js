@@ -177,7 +177,6 @@ export default function toaster(attr) {
   toast.addEventListener(
     "hidden.bs.toast",
     (ev) => {
-      console.log(ev);
       // prevent issues when double clicking
       // @link https://github.com/twbs/bootstrap/issues/37265
       //@ts-ignore
