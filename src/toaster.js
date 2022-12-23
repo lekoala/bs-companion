@@ -145,6 +145,7 @@ export default function toaster(attr) {
           const transition = parseFloat(getComputedStyle(toast).transitionDuration) * 1e3;
           toast.style.transition = `all ${transition * 4}ms cubic-bezier(0.165, 0.840, 0.440, 1.000), opacity ${transition}ms linear`;
           toast.style[animateFrom] = 0;
+          toast.style.opacity = "1"; // This is required for BSN
         }, 0);
       }
     },
