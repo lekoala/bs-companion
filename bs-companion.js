@@ -7,6 +7,11 @@ import modalizer from "./src/modalizer.js";
 import modalizerConfirm from "./src/modalizerConfirm.js";
 import FormValidator from "./src/FormValidator.js";
 
+// BSN Compat
+if (window.BSN && !window.bootstrap) {
+  window.bootstrap = window.BSN;
+}
+
 // Register elements (you can potentially extend with your own classes or rename element)
 customElements.define("bs-tabs", BsTabs);
 customElements.define("bs-toggle", BsToggle);

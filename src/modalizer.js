@@ -31,6 +31,8 @@ const checkIcon =
  * @property {string} [icon] (alert)
  */
 
+let counter = 0;
+
 /**
  * Create a modal object.
  *
@@ -49,7 +51,7 @@ export default function modalizer(attr = {}) {
    * @type {ModalizerOptions}
    */
   const defaults = {
-    id: "modal-" + Date.now(),
+    id: "",
     size: "",
     static: false,
     animated: true,
@@ -71,6 +73,9 @@ export default function modalizer(attr = {}) {
     icon: "warning",
   };
   attr = Object.assign({}, defaults, attr);
+  attr.id = attr.id || `modal-${++counter}`;
+
+  const once = { once: true };
 
   // Build template
   let staticAttr = ` data-bs-backdrop="static" data-bs-keyboard="false"`;
@@ -133,6 +138,14 @@ export default function modalizer(attr = {}) {
   let modal = new bootstrap.Modal(el);
   // Cleanup instead of just hiding
   el.addEventListener(
+    "hide.bs.modal",
+    () => {
+      // As soon as it starts hiding, don't allow anymore clicks
+      el.style.pointerEvents = "none";
+    },
+    once
+  );
+  el.addEventListener(
     "hidden.bs.modal",
     () => {
       //@ts-ignore
@@ -140,12 +153,14 @@ export default function modalizer(attr = {}) {
       //@ts-ignore
       el.querySelectorAll('[data-bs-toggle="popover"]').forEach((n) => bootstrap.Popover.getInstance(n).dispose());
       // prevent cleanup issue due to animation
-      setTimeout(() => {
+      //@ts-ignore
+      const element = modal.element || modal._element;
+      if (element) {
         modal.dispose();
-        el.remove();
-      }, 1000);
+      }
+      el.remove();
     },
-    { once: true }
+    once
   );
 
   // Trigger hide
@@ -166,7 +181,7 @@ export default function modalizer(attr = {}) {
             })
           );
         },
-        { once: true }
+        once
       );
     }
   );
@@ -181,7 +196,7 @@ export default function modalizer(attr = {}) {
 
   // Show animation
   if (attr.icon && attr.animated && attr.showIcon) {
-    el.addEventListener("shown.bs.modal", () => el.querySelector(".modal-icon").classList.add("modal-icon-show"), { once: true });
+    el.addEventListener("shown.bs.modal", () => el.querySelector(".modal-icon").classList.add("modal-icon-show"), once);
   }
 
   return modal;

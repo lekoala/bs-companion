@@ -14,6 +14,8 @@
  * @property {string} [buttonClassName] (none) Additional classes for close button
  */
 
+let counter = 0;
+
 /**
  * Create a toast object
  *
@@ -85,7 +87,7 @@ export default function toaster(attr) {
   }
 
   const toast = document.createElement("div");
-  toast.id = attr.id || "toast-" + Date.now();
+  toast.id = attr.id || `toast-${++counter}`;
   toast.className = `toast toaster border-0 bg-white`;
   toast.role = "alert";
   toast.ariaLive = "assertive";
@@ -154,6 +156,8 @@ export default function toaster(attr) {
   toast.addEventListener(
     "hide.bs.toast",
     () => {
+      // As soon as it starts hiding, don't allow anymore clicks
+      toast.style.pointerEvents = "none";
       if (attr.animation) {
         setTimeout(() => {
           // Helps dealing with stacked toasts that jumps when hiding
@@ -172,13 +176,16 @@ export default function toaster(attr) {
   // Cleanup instead of just hiding
   toast.addEventListener(
     "hidden.bs.toast",
-    () => {
+    (ev) => {
+      console.log(ev);
       // prevent issues when double clicking
       // @link https://github.com/twbs/bootstrap/issues/37265
-      setTimeout(() => {
+      //@ts-ignore
+      const element = inst.element || inst._element;
+      if (element) {
         inst.dispose();
-        toast.remove();
-      }, 1000);
+      }
+      toast.remove();
     },
     once
   );
