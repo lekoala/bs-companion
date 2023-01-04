@@ -82,6 +82,7 @@ export default function toaster(attr) {
   const toastBody = document.createElement("div");
   toastBody.className = `toast-body`;
   toastBody.innerHTML = `<div class="d-flex w-100"><div class="flex-grow-1">${attr.body}</div></div></div>`;
+  toastBody.style.overflowWrap = "anywhere"; // helps dealing with word-break not respecting w-100
   if (!attr.header) {
     toastBody.firstChild.appendChild(btnClose);
   }
