@@ -11,13 +11,13 @@
     <meta name="theme-color" content="#eeeeee" media="(prefers-color-scheme: dark)" />
 
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
       crossorigin="anonymous" />
     <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
       crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" type="module"></script>
 
@@ -113,13 +113,16 @@
       <p>
         Node content can be used instead of title attribute if its not there. Also, add
         <code>mobile</code>
-        attribute for tooltips that replace content when you need to save space. Simply set the <code>--tooltip-enable</code> to true in css for the collapsed view.
+        attribute for tooltips that replace content when you need to save space. Simply set the
+        <code>--tooltip-enable</code>
+        to true in css for the collapsed view.
       </p>
       <button id="toggleClass" onclick="document.getElementById('test-nav-item').classList.toggle('badge-tooltip')">Toggle badge-tooltip class</button>
       <button id="toggleClass" onclick="document.getElementById('test-icon-item').classList.toggle('badge-icon')">Toggle badge-icon class</button>
 
       <ul class="list-group">
-        <li class="list-group-item disabled" aria-disabled="true">A disabled item (it doesn't trigger tooltip)
+        <li class="list-group-item disabled" aria-disabled="true">
+          A disabled item (it doesn't trigger tooltip)
           <bs-toggle mobile><span class="badge bg-primary rounded-pill">0</span></bs-toggle>
         </li>
         <li class="list-group-item badge-tooltip" id="test-nav-item">
@@ -139,7 +142,8 @@
             </span>
           </bs-toggle>
         </li>
-        <li class="list-group-item">A fourth item
+        <li class="list-group-item">
+          A fourth item
           <bs-toggle mobile><span class="badge bg-primary rounded-pill">0</span></bs-toggle>
         </li>
         <li class="list-group-item">And a fifth one</li>

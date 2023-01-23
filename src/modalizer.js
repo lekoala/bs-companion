@@ -23,7 +23,7 @@ const checkIcon =
  * @property {string} [confirmText] (v)
  * @property {string} [confirmClass] (success)
  * @property {string} [cancelText] (x)
- * @property {string} [cancelClass] (light)
+ * @property {string} [cancelClass] (light|dark)
  * @property {string} [denyText] (/)
  * @property {string} [denyClass] (danger)
  * @property {string} [size] (none) Size of the modal (sm|md|lg)
@@ -65,7 +65,7 @@ export default function modalizer(attr = {}) {
     confirmClass: "success",
     showCancel: false,
     cancelText: closeIcon,
-    cancelClass: "light",
+    cancelClass: document.documentElement.dataset.bsTheme == "dark" ? "dark" : "light",
     showDeny: false,
     denyText: blockIcon,
     denyClass: "danger",
