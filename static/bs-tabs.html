@@ -211,21 +211,15 @@
       </p>
 
       <p>
-        You can also have lazy loadable nodes, simply give them the
-        <code>lazy-loadable</code>
-        class and they will get a
+        You can also have lazy loadable nodes by using `lazy-loader`, simply wrap them and they will get a
         <code>lazyload</code>
-        event.
-        <br />
-        NOTE: the listener need to be defined before
-        <code>bs-tabs</code>
-        is defined.
+        event that you can listen only once.
       </p>
 
       <p>
         It's better to not have any
         <code>active</code>
-        class, but they will get removed anyway (they will trigger lazy content if set).
+        class, but they will get removed anyway.
       </p>
 
       <p>
@@ -258,11 +252,11 @@
         <div class="tab-content">
           <div class="tab-pane fade" id="panel-1" role="tabpanel" aria-labelledby="panel-1-tab" tabindex="0">
             panel 1
-            <div class="lazy-loadable">i'm lazy</div>
+            <lazy-loader><div class="lazy-loadable">i'm lazy</div></lazy-loader>
           </div>
           <div class="tab-pane fade" id="panel-2" role="tabpanel" aria-labelledby="panel-2-tab" tabindex="0">
             panel 2
-            <div class="lazy-loadable">i'm lazy</div>
+            <lazy-loader><div class="lazy-loadable">i'm lazy</div></lazy-loader>
           </div>
           <div class="tab-pane fade" id="panel-3" role="tabpanel" aria-labelledby="panel-3-tab" tabindex="0">
             <p>This have linkable nested tabs</p>
@@ -279,11 +273,11 @@
             <div class="tab-content">
               <div class="tab-pane fade" id="panel-3__nested-1" role="tabpanel" aria-labelledby="nested-1-tab" tabindex="0">
                 nested 1
-                <div class="lazy-loadable">i'm lazy</div>
+                <lazy-loader><div class="lazy-loadable">i'm lazy</div></lazy-loader>
               </div>
               <div class="tab-pane fade" id="panel-3__nested-2" role="tabpanel" aria-labelledby="nested-2-tab" tabindex="0">
                 nested 2
-                <div class="lazy-loadable">i'm lazy</div>
+                <lazy-loader><div class="lazy-loadable">i'm lazy</div></lazy-loader>
               </div>
             </div>
           </div>

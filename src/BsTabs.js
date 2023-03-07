@@ -37,9 +37,6 @@ class BsTabs extends HTMLElement {
   constructor() {
     // Always call super first in constructor
     super();
-
-    this.lazySelector = ".lazy-loadable";
-    this.lazyEvent = "lazyload";
   }
 
   /**
@@ -83,8 +80,14 @@ class BsTabs extends HTMLElement {
   /**
    * @link https://gomakethings.com/checking-event-target-selectors-with-event-bubbling-in-vanilla-javascript/
    * @link https://gist.github.com/WebReflection/ec9f6687842aa385477c4afca625bbf4#handling-events
+   *
+   * @param {Event} event
    */
   handleEvent(event) {
+    /**
+     * @type {HTMLElement}
+     */
+    // @ts-ignore
     const target = event.target;
     if (event.type === "show.bs.tab") {
       this.handleTabShow(target);
@@ -97,7 +100,6 @@ class BsTabs extends HTMLElement {
   }
 
   handleDropdownClick(dropdownLink) {
-    console.log(dropdownLink.dataset.link);
     const linkElement = document.getElementById(dropdownLink.dataset.link);
     linkElement.dispatchEvent(new Event("click", { bubbles: true }));
     this.menu.style.display = "none";
@@ -110,6 +112,7 @@ class BsTabs extends HTMLElement {
     if (!this.classList.contains(tabsDropdownClass)) {
       return;
     }
+
     // Hide current element
     const hidden = this.menu.querySelector("." + dropdownItemClass + "[hidden]");
     if (hidden) {
@@ -230,47 +233,10 @@ class BsTabs extends HTMLElement {
   }
 
   /**
-   * @param {HTMLElement} tab the link item
-   */
-  triggerLazyElements(tab) {
-    if (!tab) {
-      return; // not visible
-    }
-    /**
-     * @type {HTMLElement}
-     */
-    const target = document.querySelector(tab.dataset.bsTarget);
-    if (!target) {
-      return; // no valid target
-    }
-    const lazySelector = target.dataset.lazySelector ?? this.lazySelector;
-    const lazyEvent = target.dataset.lazyEvent ?? this.lazyEvent;
-    target.querySelectorAll(lazySelector).forEach((el) => {
-      // make sure we are targeting the right tab
-      if (el.closest(".tab-pane") !== target) {
-        return;
-      }
-      el.dispatchEvent(new Event(lazyEvent, { bubbles: true }));
-    });
-    // Is there any nested tab ?
-    target.querySelectorAll(navLinkSelector + "." + activeClass).forEach(
-      /**
-       * @param {HTMLElement} nestedTab
-       */
-      (nestedTab) => {
-        this.triggerLazyElements(nestedTab);
-      }
-    );
-  }
-
-  /**
    * This doesn't fire if the link is already marked as active
    * @param {HTMLElement} target
    */
   handleTabShow(target) {
-    // Trigger lazy loading
-    this.triggerLazyElements(target);
-
     // Track tabs clicks
     if (this.hasAttribute("linkable")) {
       const hash = target.dataset.bsTarget;
@@ -305,9 +271,6 @@ class BsTabs extends HTMLElement {
       resizeObserver.observe(this);
     }
     this.style.visibility = "visible";
-    if (this.offsetWidth) {
-      this.triggerLazyElements(this.getActiveTab());
-    }
   }
 
   disconnectedCallback() {

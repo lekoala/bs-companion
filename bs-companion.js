@@ -6,8 +6,10 @@ import Toasts from "./src/Toasts.js";
 import modalizer from "./src/modalizer.js";
 import modalizerConfirm from "./src/modalizerConfirm.js";
 import FormValidator from "./src/FormValidator.js";
+import LazyLoader from "./src/LazyLoader.js";
 
 // BSN Compat
+// @link https://github.com/thednp/bootstrap.native
 if (window.BSN && !window.bootstrap) {
   window.bootstrap = window.BSN;
 }
@@ -16,6 +18,7 @@ if (window.BSN && !window.bootstrap) {
 customElements.define("bs-tabs", BsTabs);
 customElements.define("bs-toggle", BsToggle);
 customElements.define("responsive-table", ResponsiveTable);
+customElements.define("lazy-loader", LazyLoader);
 
 // Expose to global scope
 window.toaster = toaster;
@@ -29,9 +32,9 @@ const BsCompanion = {
   BsToggle,
   ResponsiveTable,
   toaster,
+  Toasts,
   modalizer,
   modalizerConfirm,
   FormValidator,
-  Toasts,
 };
 export default BsCompanion;

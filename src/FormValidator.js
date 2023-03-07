@@ -1,24 +1,36 @@
+const INVALID_CLASS = "is-invalid";
+const NOVALIDATE = "novalidate";
+
 /**
- * @link https://getbootstrap.com/docs/5.2/forms/validation/
+ * Validation using Constraint validation API
+ *
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation
+ * @link https://getbootstrap.com/docs/5.3/forms/validation/
  */
 class FormValidator {
   /**
    * @param {HTMLFormElement} form
    */
   constructor(form) {
-    if (!form.hasAttribute("novalidate")) {
-      form.setAttribute("novalidate", "");
+    // Make sure we don't use native validation
+    if (!form.hasAttribute(NOVALIDATE)) {
+      form.setAttribute(NOVALIDATE, "");
     }
     form.addEventListener(
       "submit",
       (event) => {
         // Remove errors in tabs and accordion
-        form.querySelectorAll(".nav-tabs .nav-link.is-invalid").forEach((link) => {
-          link.classList.remove("is-invalid");
+        form.querySelectorAll(".nav-tabs .nav-link." + INVALID_CLASS).forEach((link) => {
+          link.classList.remove(INVALID_CLASS);
         });
-        form.querySelectorAll(".accordion-item.is-invalid").forEach((accordionItem) => {
-          accordionItem.classList.remove("is-invalid");
+        form.querySelectorAll(".accordion-item." + INVALID_CLASS).forEach((accordionItem) => {
+          accordionItem.classList.remove(INVALID_CLASS);
         });
+
+        /**
+         * @type {HTMLInputElement}
+         */
+        let firstInvalid = null;
 
         // Show all invalid fields
         Array.from(form.elements).forEach(
@@ -26,39 +38,52 @@ class FormValidator {
            * @param {HTMLInputElement} el
            */
           (el) => {
-            if (!el.checkValidity()) {
-              // Mark all tabs and accordions as invalid as well
-              let parent = el.parentElement;
-              let accordion = null;
-              while (parent && !parent.classList.contains("tab-pane")) {
-                if (parent.classList.contains("accordion-item")) {
-                  accordion = parent;
-                }
-                parent = parent.parentElement;
+            if (el.checkValidity()) {
+              return;
+            }
+
+            if (!firstInvalid) {
+              firstInvalid = el;
+            }
+
+            // Mark all tabs and accordions as invalid as well
+            let tabPane = el.parentElement;
+            let accordion = null;
+            while (tabPane && !tabPane.classList.contains("tab-pane")) {
+              if (tabPane.classList.contains("accordion-item")) {
+                accordion = tabPane;
               }
-              if (parent && !parent.classList.contains("active")) {
-                const link = form.querySelector("[data-bs-target='#" + parent.getAttribute("id") + "']");
-                if (link) {
-                  link.classList.add("is-invalid");
-                }
+              tabPane = tabPane.parentElement;
+            }
+            // This depends on specific styles, see _form-validation.scss
+            if (tabPane && !tabPane.classList.contains("active")) {
+              // Find matching tab link
+              const link = form.querySelector("[data-bs-target='#" + tabPane.getAttribute("id") + "']");
+              if (link) {
+                link.classList.add(INVALID_CLASS);
               }
-              if (accordion) {
-                accordion.classList.add("is-invalid");
-              }
+            }
+            if (accordion) {
+              accordion.classList.add(INVALID_CLASS);
             }
           }
         );
 
+        // If the form is invalid
         if (!form.checkValidity()) {
           event.preventDefault();
           event.stopPropagation();
-          // Show message
-          if (form.dataset.validationMessage) {
+
+          // Show message as toast
+          //@ts-ignore
+          if (form.dataset.validationMessage && typeof window.Toasts !== "undefined") {
             //@ts-ignore
-            window.toaster({
-              body: form.dataset.validationMessage,
-              className: "border-0 bg-danger text-white",
-            });
+            window.Toasts.error(form.dataset.validationMessage);
+          }
+
+          // Focus element
+          if (firstInvalid) {
+            firstInvalid.focus();
           }
         }
 
@@ -67,6 +92,10 @@ class FormValidator {
       false
     );
   }
+
+  /**
+   * @param {string} selector
+   */
   static init(selector = ".needs-validation") {
     document.querySelectorAll(selector).forEach(
       /**
