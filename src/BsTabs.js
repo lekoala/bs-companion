@@ -18,7 +18,7 @@ const resizeObserver = new ResizeObserver((entries) => {
 
     // check inlineSize (width) and not blockSize (height)
     const contentBoxSize = Array.isArray(entry.contentBoxSize) ? entry.contentBoxSize[0] : entry.contentBoxSize;
-    const size = parseInt(contentBoxSize.inlineSize) - offset;
+    const size = parseInt(contentBoxSize.inlineSize) - offset - 1; // avoid rounding issues
 
     const baseWidth = parseInt(tabs.dataset.baseWidth);
     if (size < baseWidth) {
