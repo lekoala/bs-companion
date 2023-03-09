@@ -1,13 +1,18 @@
 const LAZY_EVENT = "lazyload";
-
+const IGNORE_CLASS = "lazyload-ignore";
 /**
  * @var {IntersectionObserver}
  */
 const observer = new window.IntersectionObserver((entries, observerRef) => {
   entries.forEach(async (entry) => {
     if (entry.isIntersecting) {
-      observerRef.unobserve(entry.target);
-      Array.from(entry.target.children).forEach((el) => {
+      const target = entry.target;
+      // We may want to prevent events until event listeners are defined and class removed
+      if (target.classList.contains(IGNORE_CLASS)) {
+        return;
+      }
+      observerRef.unobserve(target);
+      Array.from(target.children).forEach((el) => {
         el.dispatchEvent(new Event(LAZY_EVENT, { bubbles: true }));
       });
     }
