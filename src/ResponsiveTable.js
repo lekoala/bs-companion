@@ -1,3 +1,5 @@
+import whenParsed from "./utils/whenParsed.js";
+
 /**
  * @param {*} list
  * @returns {Array}
@@ -113,6 +115,10 @@ class ResponsiveTable extends HTMLElement {
   }
 
   connectedCallback() {
+    whenParsed(this);
+  }
+
+  parsedCallback() {
     this.init();
     resizeObserver.observe(this);
   }

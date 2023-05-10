@@ -1,4 +1,5 @@
 import normalizeData from "./utils/normalizeData.js";
+import whenParsed from "./utils/whenParsed.js";
 
 const resizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
@@ -24,6 +25,10 @@ class BsToggle extends HTMLElement {
   }
 
   connectedCallback() {
+    whenParsed(this);
+  }
+
+  parsedCallback() {
     let options = { ...this.dataset };
     // The js api expects properly typed data
     for (var key in options) {

@@ -1,3 +1,5 @@
+import whenParsed from "./utils/whenParsed.js";
+
 const tabsSelector = ".nav";
 const navLinkSelector = ".nav-link";
 const dropdownItemClass = "dropdown-item";
@@ -256,6 +258,10 @@ class BsTabs extends HTMLElement {
   }
 
   connectedCallback() {
+    whenParsed(this);
+  }
+
+  parsedCallback() {
     /**
      * @type {HTMLElement}
      */
