@@ -107,3 +107,4 @@ It will also checks in tabs and accordion and show invalid icons.
 - [Bootstrap 5 Tags](https://github.com/lekoala/bootstrap5-tags): tags input for bootstrap
 - [Bootstrap5 autocomplete](https://github.com/lekoala/bootstrap5-autocomplete): the autocomplete input for bootstrap 5 (and more!)
 - [Admini](https://github.com/lekoala/admini): the minimalistic bootstrap 5 admin panel
+- [Formidable Elements](https://github.com/lekoala/formidable-elements): more custom elements for your bootstrap app!

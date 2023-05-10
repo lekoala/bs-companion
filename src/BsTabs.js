@@ -1,4 +1,5 @@
 import whenParsed from "./utils/whenParsed.js";
+import ce from "./utils/ce.js";
 
 const tabsSelector = ".nav";
 const navLinkSelector = ".nav-link";
@@ -54,12 +55,12 @@ class BsTabs extends HTMLElement {
   }
 
   createMobileMenu() {
-    this.menu = document.createElement("ul");
+    this.menu = ce("ul");
     this.menu.classList.add("dropdown-menu");
     this.querySelectorAll("li").forEach((dropdownLink) => {
       const link = dropdownLink.querySelector("a") || dropdownLink.querySelector("button");
-      const newChild = document.createElement("li");
-      const newChildLink = document.createElement("a");
+      const newChild = ce("li");
+      const newChildLink = ce("a");
       const href = link.dataset.bsTarget || link.getAttribute("href");
 
       // Avoid menu to be crunched on small screens
@@ -267,6 +268,7 @@ class BsTabs extends HTMLElement {
      */
     this.tabs = this.querySelector(tabsSelector);
 
+    // call handleEvent
     this.addEventListener("show.bs.tab", this);
     if (this.hasAttribute("linkable")) {
       this.makeLinkable();
