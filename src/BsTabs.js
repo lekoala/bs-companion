@@ -256,9 +256,10 @@ class BsTabs extends HTMLElement {
       if (hash) {
         const method = this.getAttribute("linkable") == "nav" ? "pushState" : "replaceState";
         window.history[method](
-          {
+          // Preserve current state if any
+          Object.assign({}, history.state || {}, {
             bstabs: true,
-          },
+          }),
           "",
           urlWithHash(hash)
         );
