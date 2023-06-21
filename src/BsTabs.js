@@ -34,6 +34,16 @@ const resizeObserver = new ResizeObserver((entries) => {
 });
 
 /**
+ * @param {string} hash
+ * @returns {URL}
+ */
+function urlWithHash(hash) {
+  const url = new URL(window.location.href);
+  url.hash = hash;
+  return url;
+}
+
+/**
  * Improve bs tabs by making them collapsable and linkable
  */
 class BsTabs extends HTMLElement {
@@ -245,32 +255,22 @@ class BsTabs extends HTMLElement {
       const hash = target.dataset.bsTarget;
       if (hash) {
         const method = this.getAttribute("linkable") == "nav" ? "pushState" : "replaceState";
-        const url = new URL(window.location.href);
-        url.hash = hash;
         window.history[method](
           {
             bstabs: true,
           },
           "",
-          url
+          urlWithHash(hash)
         );
         this.persistHash();
       }
     }
   }
 
-  makeLinkable(nav = false) {
+  makeLinkable() {
     this.removeActiveTab();
     this.restoreState();
     this.setDefaultTab();
-
-    // If we push in state, deal with popstate
-    if (nav) {
-      window.addEventListener("popstate", (event) => {
-        this.removeActiveTab();
-        this.restoreState();
-      });
-    }
   }
 
   connectedCallback() {
@@ -286,7 +286,13 @@ class BsTabs extends HTMLElement {
     // call handleEvent
     this.addEventListener("show.bs.tab", this);
     if (this.hasAttribute("linkable")) {
-      this.makeLinkable(this.getAttribute("linkable") == "nav");
+      this.makeLinkable();
+      // If we push in state, deal with popstate
+      if (this.getAttribute("linkable") == "nav") {
+        window.addEventListener("popstate", (event) => {
+          this.makeLinkable();
+        });
+      }
     }
     if (this.hasAttribute("responsive")) {
       this.addEventListener("click", this);

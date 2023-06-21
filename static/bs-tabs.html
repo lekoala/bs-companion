@@ -284,6 +284,30 @@
           </div>
         </div>
       </div>
+
+      <p>Tabs that can be navigated with back/forward.</p>
+
+      <div class="demo" style="min-height: 400px">
+        <bs-tabs linkable="nav" responsive>
+          <ul class="nav nav-tabs" id="myTab3" role="tablist" style="width: 100%">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="panel2-1-tab" data-bs-toggle="tab" data-bs-target="#panel2-1" type="button" role="tab">Panel 1</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="panel2-2-tab" data-bs-toggle="tab" data-bs-target="#panel2-2" type="button" role="tab">Panel 2</a>
+            </li>
+          </ul>
+        </bs-tabs>
+
+        <div class="tab-content">
+          <div class="tab-pane fade" id="panel2-1" role="tabpanel" aria-labelledby="panel2-1-tab" tabindex="0">
+            panel 1
+          </div>
+          <div class="tab-pane fade" id="panel2-2" role="tabpanel" aria-labelledby="panel2-2-tab" tabindex="0">
+            panel 2
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
