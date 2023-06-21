@@ -26,7 +26,7 @@ class Toasts {
   }
 
   /**
-   * @link https://getbootstrap.com/docs/5.2/utilities/background/#background-gradient
+   * @link https://getbootstrap.com/docs/5.3/utilities/background/#background-gradient
    */
   static enableGradient() {
     defaultOptions.baseClassName = "bg-gradient text-white";

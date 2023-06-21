@@ -244,18 +244,33 @@ class BsTabs extends HTMLElement {
     if (this.hasAttribute("linkable")) {
       const hash = target.dataset.bsTarget;
       if (hash) {
+        const method = this.getAttribute("linkable") == "nav" ? "pushState" : "replaceState";
         const url = new URL(window.location.href);
         url.hash = hash;
-        window.history.pushState({}, "", url);
+        window.history[method](
+          {
+            bstabs: true,
+          },
+          "",
+          url
+        );
         this.persistHash();
       }
     }
   }
 
-  makeLinkable() {
+  makeLinkable(nav = false) {
     this.removeActiveTab();
     this.restoreState();
     this.setDefaultTab();
+
+    // If we push in state, deal with popstate
+    if (nav) {
+      window.addEventListener("popstate", (event) => {
+        this.removeActiveTab();
+        this.restoreState();
+      });
+    }
   }
 
   connectedCallback() {
@@ -271,7 +286,7 @@ class BsTabs extends HTMLElement {
     // call handleEvent
     this.addEventListener("show.bs.tab", this);
     if (this.hasAttribute("linkable")) {
-      this.makeLinkable();
+      this.makeLinkable(this.getAttribute("linkable") == "nav");
     }
     if (this.hasAttribute("responsive")) {
       this.addEventListener("click", this);
