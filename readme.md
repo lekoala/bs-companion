@@ -13,6 +13,7 @@ This packages includes:
 - Toasts: Easily generate basic ui toasts (success, warning, error) and enforce default styling
 - Modalizer: Generate beautiful modals without markup
 - Form Validator: Consistent validator that works across tabs and accordions
+- BS Progress: indeterminate and top page progress bars
 
 ## Tabs
 
