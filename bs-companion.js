@@ -7,6 +7,7 @@ import modalizer from "./src/modalizer.js";
 import modalizerConfirm from "./src/modalizerConfirm.js";
 import FormValidator from "./src/FormValidator.js";
 import LazyLoader from "./src/LazyLoader.js";
+import BsProgress from "./src/BsProgress.js";
 
 // BSN Compat
 // @link https://github.com/thednp/bootstrap.native
@@ -19,6 +20,7 @@ customElements.define("bs-tabs", BsTabs);
 customElements.define("bs-toggle", BsToggle);
 customElements.define("responsive-table", ResponsiveTable);
 customElements.define("lazy-loader", LazyLoader);
+customElements.define("bs-progress", BsProgress);
 
 // Expose to global scope
 window.toaster = toaster;

@@ -1,3 +1,4 @@
+// Indeterminate
 .progress-bar-indeterminate {
     width: 100%;
     animation: indeterminateAnimation calc(1s * var(--indeterminate-speed, 1)) infinite var(--indeterminate-easing, linear);
@@ -26,4 +27,19 @@
     100% {
         transform: translateX(var(--indeterminate-end, 100%)) scaleX(0.5);
     }
+}
+
+// Top progress
+
+.progress-top {
+    pointer-events: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: transparent;
+    border-radius: 0;
+    height: 2px;
+
 }
