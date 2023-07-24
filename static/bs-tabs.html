@@ -1,313 +1,278 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
-  <head>
-    <title>Bs Tabs demo</title>
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="light dark" />
+<head>
+  <title>Bs Tabs demo</title>
 
-    <meta name="theme-color" content="#111111" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#eeeeee" media="(prefers-color-scheme: dark)" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-      crossorigin="anonymous" />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-      crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6/dist/jquery.min.js" type="module"></script>
+  <meta name="theme-color" content="#111111" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#eeeeee" media="(prefers-color-scheme: dark)" />
 
-    <script src="https://cdn.jsdelivr.net/npm/last-icon@2/last-icon.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js" type="module"></script>
 
-    <style>
-      l-i {
-        --size: 1em;
-        display: -webkit-inline-box;
-        display: -ms-inline-flexbox;
-        display: inline-flex;
-        width: var(--size);
-        height: var(--size);
-        vertical-align: middle;
-      }
-      l-i svg {
-        display: block;
-        width: 100%;
-        height: 100%;
-      }
-      l-i i {
-        font-size: var(--size) !important;
-        color: currentColor;
-      }
+  <script src="https://cdn.jsdelivr.net/npm/last-icon@2/last-icon.min.js"></script>
 
-      p l-i:not([size]),
-      button l-i:not([size]),
-      a l-i:not([size]),
-      span l-i:not([size]) {
-        vertical-align: -0.125em;
-      }
-    </style>
+  <style>
+    l-i {
+      --size: 1em;
+      display: -webkit-inline-box;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      width: var(--size);
+      height: var(--size);
+      vertical-align: middle;
+    }
 
-    <script type="module">
-      // This need to execute before bs companion is loaded, because the trigger event will fire
-      // as soon as the element is defined
-      document.querySelectorAll(".lazy-loadable").forEach((el) => {
-        el.addEventListener(
-          "lazyload",
-          (ev) => {
-            el.innerHTML = "I will be replaced in 2s";
-            setTimeout(() => {
-              el.innerHTML = "I'm not lazy anymore";
-            }, 2000);
-          },
-          {
-            once: true,
-          }
-        );
-      });
+    l-i svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
 
-      // This is still fired after the isConnected callback if not using setTimeout hack
-      customElements.whenDefined("bs-tabs").then(() => {
-        console.log("not defined");
-      });
-    </script>
+    l-i i {
+      font-size: var(--size) !important;
+      color: currentColor;
+    }
 
-    <link href="./dist/demo.min.css" rel="stylesheet" />
-    <link href="./dist/bs-companion.min.css" rel="stylesheet" />
-    <script src="./dist/bs-companion.min.js" type="module"></script>
+    p l-i:not([size]),
+    button l-i:not([size]),
+    a l-i:not([size]),
+    span l-i:not([size]) {
+      vertical-align: -0.125em;
+    }
+  </style>
 
-    <script type="module">
-      // This is still fired after the isConnected callback if not using setTimeout hack
-      customElements.whenDefined("bs-tabs").then(() => {
-        console.log("defined");
-      });
-    </script>
-  </head>
+  <script type="module">
+    // This need to execute before bs companion is loaded, because the trigger event will fire
+    // as soon as the element is defined
+    document.querySelectorAll(".lazy-loadable").forEach((el) => {
+      el.addEventListener(
+        "lazyload",
+        (ev) => {
+          el.innerHTML = "I will be replaced in 2s";
+          setTimeout(() => {
+            el.innerHTML = "I'm not lazy anymore";
+          }, 2000);
+        },
+        {
+          once: true,
+        }
+      );
+    });
 
-  <body>
-    <div class="container py-5">
-      <h1>BS Companion</h1>
-      <a href="index.html">Back</a>
-      <hr />
-      <h2>BS Tabs</h2>
+    // This is still fired after the isConnected callback if not using setTimeout hack
+    customElements.whenDefined("bs-tabs").then(() => {
+      console.log("not defined");
+    });
+  </script>
 
-      <p>
-        Wrap your tabs nav with a
-        <code>bs-tabs</code>
-        components and let the magic happen!.
-      </p>
-      <p>
-        Add a
-        <code>responsive</code>
-        attribute to make your tabs collapsable to a dropdown.
-      </p>
+  <link href="./dist/demo.min.css" rel="stylesheet" />
+  <link href="./dist/bs-companion.min.css" rel="stylesheet" />
+  <script src="./dist/bs-companion.min.js" type="module"></script>
 
-      <div class="demo" style="min-height: 400px">
-        <header>
-          <bs-tabs responsive>
-            <ul class="nav nav-tabs" id="myTab" role="tablist" style="width: 100%">
-              <li class="nav-item" role="presentation">
-                <button
-                  class="nav-link active"
-                  id="home-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#home"
-                  type="button"
-                  role="tab"
-                  aria-controls="home"
-                  aria-selected="true">
-                  <l-i name="home" set="mi"></l-i>
-                  Home
-                </button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button
-                  class="nav-link"
-                  id="profile-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#profile"
-                  type="button"
-                  role="tab"
-                  aria-controls="profile"
-                  aria-selected="false">
-                  Profile
-                </button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button
-                  class="nav-link"
-                  id="messages-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#messages"
-                  type="button"
-                  role="tab"
-                  aria-controls="messages"
-                  aria-selected="false">
-                  Messages
-                </button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button
-                  class="nav-link disabled"
-                  id="settings-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#settings"
-                  type="button"
-                  role="tab"
-                  aria-controls="settings"
-                  aria-selected="false"
-                  disabled>
-                  Settings
-                </button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button
-                  class="nav-link"
-                  id="longtab-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#longtab"
-                  type="button"
-                  role="tab"
-                  aria-controls="longtab"
-                  aria-selected="false">
-                  A very long tab
-                </button>
-              </li>
+  <script type="module">
+    // This is still fired after the isConnected callback if not using setTimeout hack
+    customElements.whenDefined("bs-tabs").then(() => {
+      console.log("defined");
+    });
+  </script>
+</head>
 
-              <li class="nav-item" role="presentation">
-                <button
-                  class="nav-link"
-                  id="foreign-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#foreigntab"
-                  type="button"
-                  role="tab"
-                  aria-controls="foreigntab"
-                  aria-selected="false">
-                  ㅂㅈㄷㄱㅅㅁㄴㅇㄹㅎㅋㅌㅊ ㅂㅈㄷㄱㅅㅁㄴㅇㄹㅎㅋㅌㅊ
-                </button>
-              </li>
-            </ul>
-          </bs-tabs>
-        </header>
+<body>
+  <div class="container py-5">
+    <h1>BS Companion</h1>
+    <a href="index.html">Back</a>
+    <hr />
+    <h2>BS Tabs</h2>
 
-        <div class="tab-content">
-          <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab" tabindex="0">home tab</div>
-          <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">profile tab</div>
-          <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab" tabindex="0">messages</div>
-          <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab" tabindex="0">settings</div>
-          <div class="tab-pane" id="longtab" role="tabpanel" aria-labelledby="longtab-tab" tabindex="0">longtab</div>
-          <div class="tab-pane" id="foreigntab" role="tabpanel" aria-labelledby="foreign-tab" tabindex="0">foreigntab</div>
-        </div>
-      </div>
+    <p>
+      Wrap your tabs nav with a
+      <code>bs-tabs</code>
+      components and let the magic happen!.
+    </p>
+    <p>
+      Add a
+      <code>responsive</code>
+      attribute to make your tabs collapsable to a dropdown.
+    </p>
 
-      <p>
-        Add a
-        <code>linkable</code>
-        attribute to make your tabs linkable through anchors. By default, linkable tabs replace history. If you expect
-        back/forward button to move in tabs, set <code>linkable="nav"</code>.
-      </p>
-
-      <p>
-        You can also have lazy loadable nodes by using `lazy-loader`, simply wrap them and they will get a
-        <code>lazyload</code>
-        event that you can listen only once.
-      </p>
-
-      <p>
-        It's better to not have any
-        <code>active</code>
-        class, but they will get removed anyway.
-      </p>
-
-      <p>
-        Nested tabs are supported as long as they follow
-        <code>parentid__childid</code>
-        convention.
-      </p>
-
-      <p>
-        In order to restore the proper when submitting the a form (eg: after redirecting back), any input with the name
-        <code>_hash</code>
-        will get the current hash value
-      </p>
-
-      <div class="demo" style="min-height: 400px">
-        <bs-tabs linkable responsive>
-          <ul class="nav nav-tabs" id="myTab2" role="tablist" style="width: 100%">
+    <div class="demo" style="min-height: 400px">
+      <header>
+        <bs-tabs responsive>
+          <ul class="nav nav-tabs" id="myTab" role="tablist" style="width: 100%">
             <li class="nav-item" role="presentation">
-              <a class="nav-link" id="panel-1-tab" data-bs-toggle="tab" data-bs-target="#panel-1" type="button" role="tab">Panel 1</a>
+              <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab"
+                aria-controls="home" aria-selected="true">
+                <l-i name="home" set="mi"></l-i>
+                Home
+              </button>
             </li>
             <li class="nav-item" role="presentation">
-              <a class="nav-link" id="panel-2-tab" data-bs-toggle="tab" data-bs-target="#panel-2" type="button" role="tab">Panel 2</a>
+              <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab"
+                aria-controls="profile" aria-selected="false">
+                Profile
+              </button>
             </li>
             <li class="nav-item" role="presentation">
-              <a class="nav-link" id="panel-3-tab" data-bs-toggle="tab" data-bs-target="#panel-3" type="button" role="tab">Panel 3 with nested tabs</a>
+              <button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab"
+                aria-controls="messages" aria-selected="false">
+                Messages
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link disabled" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab"
+                aria-controls="settings" aria-selected="false" disabled>
+                Settings
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="longtab-tab" data-bs-toggle="tab" data-bs-target="#longtab" type="button" role="tab"
+                aria-controls="longtab" aria-selected="false">
+                A very long tab
+              </button>
+            </li>
+
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="foreign-tab" data-bs-toggle="tab" data-bs-target="#foreigntab" type="button" role="tab"
+                aria-controls="foreigntab" aria-selected="false">
+                ㅂㅈㄷㄱㅅㅁㄴㅇㄹㅎㅋㅌㅊ ㅂㅈㄷㄱㅅㅁㄴㅇㄹㅎㅋㅌㅊ
+              </button>
             </li>
           </ul>
         </bs-tabs>
+      </header>
 
-        <div class="tab-content">
-          <div class="tab-pane fade" id="panel-1" role="tabpanel" aria-labelledby="panel-1-tab" tabindex="0">
-            panel 1
-            <lazy-loader><div class="lazy-loadable">i'm lazy</div></lazy-loader>
-          </div>
-          <div class="tab-pane fade" id="panel-2" role="tabpanel" aria-labelledby="panel-2-tab" tabindex="0">
-            panel 2
-            <lazy-loader><div class="lazy-loadable">i'm lazy</div></lazy-loader>
-          </div>
-          <div class="tab-pane fade" id="panel-3" role="tabpanel" aria-labelledby="panel-3-tab" tabindex="0">
-            <p>This have linkable nested tabs</p>
-            <bs-tabs linkable>
-              <ul class="nav nav-tabs" id="myTab2" role="tablist" style="width: 100%">
-                <li class="nav-item" role="presentation">
-                  <a class="nav-link" id="nested-1-tab" data-bs-toggle="tab" data-bs-target="#panel-3__nested-1" type="button" role="tab">Nested 1</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <a class="nav-link" id="nested-2-tab" data-bs-toggle="tab" data-bs-target="#panel-3__nested-2" type="button" role="tab">Nested 2</a>
-                </li>
-              </ul>
-            </bs-tabs>
-            <div class="tab-content">
-              <div class="tab-pane fade" id="panel-3__nested-1" role="tabpanel" aria-labelledby="nested-1-tab" tabindex="0">
-                nested 1
-                <lazy-loader><div class="lazy-loadable">i'm lazy</div></lazy-loader>
-              </div>
-              <div class="tab-pane fade" id="panel-3__nested-2" role="tabpanel" aria-labelledby="nested-2-tab" tabindex="0">
-                nested 2
-                <lazy-loader><div class="lazy-loadable">i'm lazy</div></lazy-loader>
-              </div>
+      <div class="tab-content">
+        <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab" tabindex="0">home tab</div>
+        <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">profile tab</div>
+        <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab" tabindex="0">messages</div>
+        <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab" tabindex="0">settings</div>
+        <div class="tab-pane" id="longtab" role="tabpanel" aria-labelledby="longtab-tab" tabindex="0">longtab</div>
+        <div class="tab-pane" id="foreigntab" role="tabpanel" aria-labelledby="foreign-tab" tabindex="0">foreigntab</div>
+      </div>
+    </div>
+
+    <p>
+      Add a
+      <code>linkable</code>
+      attribute to make your tabs linkable through anchors. By default, linkable tabs replace history. If you expect
+      back/forward button to move in tabs, set <code>linkable="nav"</code>.
+    </p>
+
+    <p>
+      You can also have lazy loadable nodes by using `lazy-loader`, simply wrap them and they will get a
+      <code>lazyload</code>
+      event that you can listen only once.
+    </p>
+
+    <p>
+      It's better to not have any
+      <code>active</code>
+      class, but they will get removed anyway.
+    </p>
+
+    <p>
+      Nested tabs are supported as long as they follow
+      <code>parentid__childid</code>
+      convention.
+    </p>
+
+    <p>
+      In order to restore the proper when submitting the a form (eg: after redirecting back), any input with the name
+      <code>_hash</code>
+      will get the current hash value
+    </p>
+
+    <div class="demo" style="min-height: 400px">
+      <bs-tabs linkable responsive>
+        <ul class="nav nav-tabs" id="myTab2" role="tablist" style="width: 100%">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="panel-1-tab" data-bs-toggle="tab" data-bs-target="#panel-1" type="button" role="tab">Panel 1</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="panel-2-tab" data-bs-toggle="tab" data-bs-target="#panel-2" type="button" role="tab">Panel 2</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="panel-3-tab" data-bs-toggle="tab" data-bs-target="#panel-3" type="button" role="tab">Panel 3 with nested
+              tabs</a>
+          </li>
+        </ul>
+      </bs-tabs>
+
+      <div class="tab-content">
+        <div class="tab-pane fade" id="panel-1" role="tabpanel" aria-labelledby="panel-1-tab" tabindex="0">
+          panel 1
+          <lazy-loader>
+            <div class="lazy-loadable">i'm lazy</div>
+          </lazy-loader>
+        </div>
+        <div class="tab-pane fade" id="panel-2" role="tabpanel" aria-labelledby="panel-2-tab" tabindex="0">
+          panel 2
+          <lazy-loader>
+            <div class="lazy-loadable">i'm lazy</div>
+          </lazy-loader>
+        </div>
+        <div class="tab-pane fade" id="panel-3" role="tabpanel" aria-labelledby="panel-3-tab" tabindex="0">
+          <p>This have linkable nested tabs</p>
+          <bs-tabs linkable>
+            <ul class="nav nav-tabs" id="myTab2" role="tablist" style="width: 100%">
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" id="nested-1-tab" data-bs-toggle="tab" data-bs-target="#panel-3__nested-1" type="button"
+                  role="tab">Nested 1</a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" id="nested-2-tab" data-bs-toggle="tab" data-bs-target="#panel-3__nested-2" type="button"
+                  role="tab">Nested 2</a>
+              </li>
+            </ul>
+          </bs-tabs>
+          <div class="tab-content">
+            <div class="tab-pane fade" id="panel-3__nested-1" role="tabpanel" aria-labelledby="nested-1-tab" tabindex="0">
+              nested 1
+              <lazy-loader>
+                <div class="lazy-loadable">i'm lazy</div>
+              </lazy-loader>
+            </div>
+            <div class="tab-pane fade" id="panel-3__nested-2" role="tabpanel" aria-labelledby="nested-2-tab" tabindex="0">
+              nested 2
+              <lazy-loader>
+                <div class="lazy-loadable">i'm lazy</div>
+              </lazy-loader>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <p>Tabs that can be navigated with back/forward.</p>
+    <p>Tabs that can be navigated with back/forward.</p>
 
-      <div class="demo" style="min-height: 400px">
-        <bs-tabs linkable="nav" responsive>
-          <ul class="nav nav-tabs" id="myTab3" role="tablist" style="width: 100%">
-            <li class="nav-item" role="presentation">
-              <a class="nav-link" id="panel2-1-tab" data-bs-toggle="tab" data-bs-target="#panel2-1" type="button" role="tab">Panel 1</a>
-            </li>
-            <li class="nav-item" role="presentation">
-              <a class="nav-link" id="panel2-2-tab" data-bs-toggle="tab" data-bs-target="#panel2-2" type="button" role="tab">Panel 2</a>
-            </li>
-          </ul>
-        </bs-tabs>
+    <div class="demo" style="min-height: 400px">
+      <bs-tabs linkable="nav" responsive>
+        <ul class="nav nav-tabs" id="myTab3" role="tablist" style="width: 100%">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="panel2-1-tab" data-bs-toggle="tab" data-bs-target="#panel2-1" type="button" role="tab">Panel 1</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="panel2-2-tab" data-bs-toggle="tab" data-bs-target="#panel2-2" type="button" role="tab">Panel 2</a>
+          </li>
+        </ul>
+      </bs-tabs>
 
-        <div class="tab-content">
-          <div class="tab-pane fade" id="panel2-1" role="tabpanel" aria-labelledby="panel2-1-tab" tabindex="0">
-            panel 1
-          </div>
-          <div class="tab-pane fade" id="panel2-2" role="tabpanel" aria-labelledby="panel2-2-tab" tabindex="0">
-            panel 2
-          </div>
+      <div class="tab-content">
+        <div class="tab-pane fade" id="panel2-1" role="tabpanel" aria-labelledby="panel2-1-tab" tabindex="0">
+          panel 1
+        </div>
+        <div class="tab-pane fade" id="panel2-2" role="tabpanel" aria-labelledby="panel2-2-tab" tabindex="0">
+          panel 2
         </div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>

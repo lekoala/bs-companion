@@ -1,0 +1,29 @@
+// Prevent issue on small screen
+.toast {
+    --bs-toast-max-width: min(90vw, 320px);
+}
+
+.toast.toaster {
+
+    // Don't hide since we remove them from the dom anyway
+    // Allow proper hide animation
+    &:not(.show) {
+        display: block !important;
+    }
+
+    // Prevent header styling issue
+    .toast-header {
+        color: unset;
+        background-color: rgba(0, 0, 0, 0.05);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    }
+
+    .bg-opacity-10 .toast-header {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    // Links shouldn't get a strange color
+    .text-white a {
+        color: $white;
+    }
+}

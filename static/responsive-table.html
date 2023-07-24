@@ -1,225 +1,220 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
-  <head>
-    <title>Responsive table demo</title>
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="light dark" />
+<head>
+  <title>Responsive table demo</title>
 
-    <meta name="theme-color" content="#111111" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#eeeeee" media="(prefers-color-scheme: dark)" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-      crossorigin="anonymous" />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-      crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" type="module"></script>
+  <meta name="theme-color" content="#111111" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#eeeeee" media="(prefers-color-scheme: dark)" />
 
-    <link href="./dist/demo.min.css" rel="stylesheet" />
-    <link href="./dist/bs-companion.min.css" rel="stylesheet" />
-    <script src="./dist/bs-companion.min.js" type="module"></script>
-  </head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js" type="module"></script>
 
-  <body>
-    <div class="container py-5">
-      <h1>BS Companion</h1>
-      <a href="index.html">Back</a>
-      <hr />
-      <h2>Responsive table</h2>
-      <p>
-        Wrap your table with a
-        <code>responsive-table</code>
-        . Rows need
-        <code>white-space: nowrap</code>
-        to avoid collapsing.
-      </p>
-      <p>
-        Select which columns gets hidden first with
-        <code>data-priority</code>
-        . Otherwise, the latest column will be selected.
-      </p>
-      <p>
-        For important content, consider showing alternative content with
-        <code>responsive-table-alt</code>
-        (or a custom alt-selector).
-      </p>
-      <p>
-        Added bonus: your table will have a proper set of
-        <code>aria-col-index</code>
-        attributes.
-      </p>
-      <div class="demo">
-        <responsive-table class="fix-borders">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-                <th scope="col" data-priority="2">Responsive 1</th>
-                <th scope="col" data-priority="1">Responsive 2</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>
-                  Mark
-                  <div class="responsive-table-alt" data-index="5">Visible if responsive 1 is hidden</div>
-                  <div class="responsive-table-alt" data-index="6">Visible if responsive 2 is hidden</div>
-                </td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>This will be hidden on small screens</td>
-                <td>This too if needed on small screen</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-                <td></td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
-        </responsive-table>
-      </div>
+  <link href="./dist/demo.min.css" rel="stylesheet" />
+  <link href="./dist/bs-companion.min.css" rel="stylesheet" />
+  <script src="./dist/bs-companion.min.js" type="module"></script>
+</head>
 
-      <p>
-        It works without a
-        <code>thead</code>
-        and with multiple headers. You don't even need to set
-        <code>data-priority</code>
-        .
-      </p>
-
-      <div class="demo">
-        <responsive-table class="fix-borders">
-          <table class="table">
+<body>
+  <div class="container py-5">
+    <h1>BS Companion</h1>
+    <a href="index.html">Back</a>
+    <hr />
+    <h2>Responsive table</h2>
+    <p>
+      Wrap your table with a
+      <code>responsive-table</code>
+      . Rows need
+      <code>white-space: nowrap</code>
+      to avoid collapsing.
+    </p>
+    <p>
+      Select which columns gets hidden first with
+      <code>data-priority</code>
+      . Otherwise, the latest column will be selected.
+    </p>
+    <p>
+      For important content, consider showing alternative content with
+      <code>responsive-table-alt</code>
+      (or a custom alt-selector).
+    </p>
+    <p>
+      Added bonus: your table will have a proper set of
+      <code>aria-col-index</code>
+      attributes.
+    </p>
+    <div class="demo">
+      <responsive-table class="fix-borders">
+        <table class="table">
+          <thead>
             <tr>
               <th scope="col">#</th>
               <th scope="col">First</th>
               <th scope="col">Last</th>
               <th scope="col">Handle</th>
-              <th scope="col">Responsive 1</th>
-              <th scope="col">Responsive 2</th>
+              <th scope="col" data-priority="2">Responsive 1</th>
+              <th scope="col" data-priority="1">Responsive 2</th>
             </tr>
-            <tr>
-              <th></th>
-              <th>Sub</th>
-              <th></th>
-              <th></th>
-              <th>Sub</th>
-              <th>Sub</th>
-            </tr>
+          </thead>
+          <tbody>
             <tr>
               <th scope="row">1</th>
-              <td>Mark</td>
+              <td>
+                Mark
+                <div class="responsive-table-alt" data-index="5">Visible if responsive 1 is hidden</div>
+                <div class="responsive-table-alt" data-index="6">Visible if responsive 2 is hidden</div>
+              </td>
               <td>Otto</td>
               <td>@mdo</td>
-              <td>This too if needed on small screen</td>
               <td>This will be hidden on small screens</td>
+              <td>This too if needed on small screen</td>
             </tr>
             <tr>
               <th scope="row">2</th>
               <td>Jacob</td>
               <td>Thornton</td>
               <td>@fat</td>
-              <td>Jacob resp 1</td>
-              <td>Jacob resp 2</td>
+              <td></td>
+              <td></td>
             </tr>
             <tr>
               <th scope="row">3</th>
               <td colspan="2">Larry the Bird</td>
               <td>@twitter</td>
-              <td>Larry resp 1</td>
-              <td>Larry resp 2</td>
+              <td></td>
+              <td></td>
             </tr>
-          </table>
-        </responsive-table>
+          </tbody>
+        </table>
+      </responsive-table>
+    </div>
 
-        <p>
-          You can opt in for using the
-          <code>fix-borders</code>
-          class that can make up for incorrect border size due to DPI settings.
-        </p>
-      </div>
+    <p>
+      It works without a
+      <code>thead</code>
+      and with multiple headers. You don't even need to set
+      <code>data-priority</code>
+      .
+    </p>
 
-      <h2>Regular responsive table</h2>
+    <div class="demo">
+      <responsive-table class="fix-borders">
+        <table class="table">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+            <th scope="col">Responsive 1</th>
+            <th scope="col">Responsive 2</th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>Sub</th>
+            <th></th>
+            <th></th>
+            <th>Sub</th>
+            <th>Sub</th>
+          </tr>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>This too if needed on small screen</td>
+            <td>This will be hidden on small screens</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+            <td>Jacob resp 1</td>
+            <td>Jacob resp 2</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td>
+            <td>Larry resp 1</td>
+            <td>Larry resp 2</td>
+          </tr>
+        </table>
+      </responsive-table>
 
-      <div class="demo">
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Heading</th>
-                <th scope="col">Heading</th>
-                <th scope="col">Heading</th>
-                <th scope="col">Heading</th>
-                <th scope="col">Heading</th>
-                <th scope="col">Heading</th>
-                <th scope="col">Heading</th>
-                <th scope="col">Heading</th>
-                <th scope="col">Heading</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <p>
+        You can opt in for using the
+        <code>fix-borders</code>
+        class that can make up for incorrect border size due to DPI settings.
+      </p>
+    </div>
+
+    <h2>Regular responsive table</h2>
+
+    <div class="demo">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Heading</th>
+              <th scope="col">Heading</th>
+              <th scope="col">Heading</th>
+              <th scope="col">Heading</th>
+              <th scope="col">Heading</th>
+              <th scope="col">Heading</th>
+              <th scope="col">Heading</th>
+              <th scope="col">Heading</th>
+              <th scope="col">Heading</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td>Cell</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>

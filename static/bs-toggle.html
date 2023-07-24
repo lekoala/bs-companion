@@ -1,153 +1,150 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
-  <head>
-    <title>Bs Toggle demo</title>
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="light dark" />
+<head>
+  <title>Bs Toggle demo</title>
 
-    <meta name="theme-color" content="#111111" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#eeeeee" media="(prefers-color-scheme: dark)" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-      crossorigin="anonymous" />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-      crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" type="module"></script>
+  <meta name="theme-color" content="#111111" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#eeeeee" media="(prefers-color-scheme: dark)" />
 
-    <script type="module"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js" type="module"></script>
 
-    <link href="./dist/demo.min.css" rel="stylesheet" />
-    <link href="./dist/bs-companion.min.css" rel="stylesheet" />
-    <script src="./dist/bs-companion.min.js" type="module"></script>
+  <script type="module"></script>
 
-    <style>
-      .custom-tooltip {
-        --bs-tooltip-bg: var(--bs-primary);
-      }
+  <link href="./dist/demo.min.css" rel="stylesheet" />
+  <link href="./dist/bs-companion.min.css" rel="stylesheet" />
+  <script src="./dist/bs-companion.min.js" type="module"></script>
 
-      .badge {
-        --tooltip-enable: false;
-      }
+  <style>
+    .custom-tooltip {
+      --bs-tooltip-bg: var(--bs-primary);
+    }
 
-      .badge-tooltip .badge {
-        text-indent: -9999px;
-        display: block;
-        padding: 0;
-        width: 6px;
-        height: 6px;
-        position: absolute;
-        top: 6px;
-        left: 6px;
-        --tooltip-enable: true;
-      }
+    .badge {
+      --tooltip-enable: false;
+    }
 
-      bs-toggle svg {
-        display: none;
-      }
-      .badge-icon bs-toggle svg {
-        display: inline-block;
-      }
-      .badge-icon .badge > span {
-        display: none;
-      }
-      .badge-icon .badge {
-        --tooltip-enable: true;
-      }
-    </style>
-  </head>
+    .badge-tooltip .badge {
+      text-indent: -9999px;
+      display: block;
+      padding: 0;
+      width: 6px;
+      height: 6px;
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      --tooltip-enable: true;
+    }
 
-  <body>
-    <div class="container py-5">
-      <h1>BS Companion</h1>
-      <a href="index.html">Back</a>
-      <hr />
-      <h2>BS Toggle</h2>
+    bs-toggle svg {
+      display: none;
+    }
 
-      <p>
-        Simply wrap any element with a
-        <code>bs-toggle</code>
-        to make it togglable! No need for manual init.
-      </p>
+    .badge-icon bs-toggle svg {
+      display: inline-block;
+    }
 
-      <h3>Tooltips</h3>
+    .badge-icon .badge>span {
+      display: none;
+    }
 
-      <p>Boolean, numeric attributes are supported</p>
+    .badge-icon .badge {
+      --tooltip-enable: true;
+    }
+  </style>
+</head>
 
-      <bs-toggle
-        data-toggle="tooltip"
-        data-html="true"
-        data-placement="top"
-        data-custom-class="custom-tooltip"
-        data-title="This top tooltip is themed via CSS variables <u>with</u> <b>HTML</b>.">
-        <button type="button" class="btn btn-secondary my-btn">Custom tooltip</button>
-      </bs-toggle>
+<body>
+  <div class="container py-5">
+    <h1>BS Companion</h1>
+    <a href="index.html">Back</a>
+    <hr />
+    <h2>BS Toggle</h2>
 
-      <p>
-        No need for
-        <code>data-toggle</code>
-        attribute, tooltip is the default.
-      </p>
+    <p>
+      Simply wrap any element with a
+      <code>bs-toggle</code>
+      to make it togglable! No need for manual init.
+    </p>
 
-      <bs-toggle data-title="Simple case">
-        <button class="btn btn-primary">Hover me!</button>
-      </bs-toggle>
+    <h3>Tooltips</h3>
 
-      <hr />
+    <p>Boolean, numeric attributes are supported</p>
 
-      <h3>Popovers</h3>
+    <bs-toggle data-toggle="tooltip" data-html="true" data-placement="top" data-custom-class="custom-tooltip"
+      data-title="This top tooltip is themed via CSS variables <u>with</u> <b>HTML</b>.">
+      <button type="button" class="btn btn-secondary my-btn">Custom tooltip</button>
+    </bs-toggle>
 
-      <bs-toggle data-toggle="popover" data-title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">
-        <button type="button" class="btn btn-lg btn-danger">Click to toggle popover</button>
-      </bs-toggle>
+    <p>
+      No need for
+      <code>data-toggle</code>
+      attribute, tooltip is the default.
+    </p>
 
-      <hr />
-      <h3 class="mt-3">Badge or tooltip</h3>
+    <bs-toggle data-title="Simple case">
+      <button class="btn btn-primary">Hover me!</button>
+    </bs-toggle>
 
-      <p>
-        Node content can be used instead of title attribute if its not there. Also, add
-        <code>mobile</code>
-        attribute for tooltips that replace content when you need to save space. Simply set the
-        <code>--tooltip-enable</code>
-        to true in css for the collapsed view.
-      </p>
-      <button id="toggleClass" onclick="document.getElementById('test-nav-item').classList.toggle('badge-tooltip')">Toggle badge-tooltip class</button>
-      <button id="toggleClass" onclick="document.getElementById('test-icon-item').classList.toggle('badge-icon')">Toggle badge-icon class</button>
+    <hr />
 
-      <ul class="list-group">
-        <li class="list-group-item disabled" aria-disabled="true">
-          A disabled item (it doesn't trigger tooltip)
-          <bs-toggle mobile><span class="badge bg-primary rounded-pill">0</span></bs-toggle>
-        </li>
-        <li class="list-group-item badge-tooltip" id="test-nav-item">
-          A second item
-          <bs-toggle mobile><span class="badge bg-primary rounded-pill">2000+</span></bs-toggle>
-        </li>
-        <li class="list-group-item badge-icon" id="test-icon-item">
-          A third item
-          <bs-toggle mobile>
-            <span class="badge bg-primary rounded-pill">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                <path
-                  d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-              </svg>
-              <span>2000+</span>
-            </span>
-          </bs-toggle>
-        </li>
-        <li class="list-group-item">
-          A fourth item
-          <bs-toggle mobile><span class="badge bg-primary rounded-pill">0</span></bs-toggle>
-        </li>
-        <li class="list-group-item">And a fifth one</li>
-      </ul>
-    </div>
-  </body>
+    <h3>Popovers</h3>
+
+    <bs-toggle data-toggle="popover" data-title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">
+      <button type="button" class="btn btn-lg btn-danger">Click to toggle popover</button>
+    </bs-toggle>
+
+    <hr />
+    <h3 class="mt-3">Badge or tooltip</h3>
+
+    <p>
+      Node content can be used instead of title attribute if its not there. Also, add
+      <code>mobile</code>
+      attribute for tooltips that replace content when you need to save space. Simply set the
+      <code>--tooltip-enable</code>
+      to true in css for the collapsed view.
+    </p>
+    <button id="toggleClass" onclick="document.getElementById('test-nav-item').classList.toggle('badge-tooltip')">Toggle badge-tooltip
+      class</button>
+    <button id="toggleClass" onclick="document.getElementById('test-icon-item').classList.toggle('badge-icon')">Toggle badge-icon
+      class</button>
+
+    <ul class="list-group">
+      <li class="list-group-item disabled" aria-disabled="true">
+        A disabled item (it doesn't trigger tooltip)
+        <bs-toggle mobile><span class="badge bg-primary rounded-pill">0</span></bs-toggle>
+      </li>
+      <li class="list-group-item badge-tooltip" id="test-nav-item">
+        A second item
+        <bs-toggle mobile><span class="badge bg-primary rounded-pill">2000+</span></bs-toggle>
+      </li>
+      <li class="list-group-item badge-icon" id="test-icon-item">
+        A third item
+        <bs-toggle mobile>
+          <span class="badge bg-primary rounded-pill">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+              <path
+                d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z">
+              </path>
+            </svg>
+            <span>2000+</span>
+          </span>
+        </bs-toggle>
+      </li>
+      <li class="list-group-item">
+        A fourth item
+        <bs-toggle mobile><span class="badge bg-primary rounded-pill">0</span></bs-toggle>
+      </li>
+      <li class="list-group-item">And a fifth one</li>
+    </ul>
+  </div>
+</body>
+
 </html>
