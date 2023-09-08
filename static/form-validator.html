@@ -31,7 +31,7 @@
     <hr />
     <h2>Form validator</h2>
 
-    <form action="" class="needs-validation" data-validation-message="Some fields are not valid">
+    <form action="" class="needs-validation only-invalid" data-validation-message="Some fields are not valid">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
           <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab"
@@ -45,25 +45,37 @@
             Profile
           </button>
         </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="password-tab" data-bs-toggle="tab" data-bs-target="#password-pane" type="button" role="tab"
+            aria-controls="password-pane" aria-selected="false">
+            Password
+          </button>
+        </li>
       </ul>
 
       <div class="tab-content">
         <div class="tab-pane active py-3" id="home" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
           <div class="col-md-4">
-            <label for="validationCustom01" class="form-label">First name</label>
-            <input type="text" class="form-control" id="validationCustom01" value="Mark" required />
+            <label for="fn-input" class="form-label">First name</label>
+            <input type="text" class="form-control" id="fn-input" value="Mark" required />
             <div class="valid-feedback">Looks good!</div>
           </div>
           <div class="col-md-4">
-            <label for="validationCustom02" class="form-label">Last name</label>
-            <input type="text" class="form-control" id="validationCustom02" value="Otto" required />
+            <label for="ln-input" class="form-label">Last name</label>
+            <input type="text" class="form-control" id="ln-input" value="Otto" required />
             <div class="valid-feedback">Looks good!</div>
           </div>
           <div class="col-md-4">
-            <label for="validationCustomUsername" class="form-label">Username</label>
+            <label for="email-input" class="form-label">Email (validate on blur, not required)</label>
+            <input type="email" class="form-control" id="email-input" value="" data-validation-trigger="blur" />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Please enter a valid email</div>
+          </div>
+          <div class="col-md-4">
+            <label for="username-input" class="form-label">Username</label>
             <div class="input-group has-validation">
-              <span class="input-group-text" id="inputGroupPrepend">@</span>
-              <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required />
+              <span class="input-group-text" id="username-prepend">@</span>
+              <input type="text" class="form-control" id="username-input" aria-describedby="username-prepend" required />
               <div class="invalid-feedback">Please choose a username.</div>
             </div>
           </div>
@@ -79,21 +91,21 @@
               <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                   <div class="col-md-6">
-                    <label for="validationCustom03" class="form-label">City</label>
-                    <input type="text" class="form-control" id="validationCustom03" required />
+                    <label for="city-input" class="form-label">City</label>
+                    <input type="text" class="form-control" id="city-input" required />
                     <div class="invalid-feedback">Please provide a valid city.</div>
                   </div>
                   <div class="col-md-3">
-                    <label for="validationCustom04" class="form-label">State</label>
-                    <select class="form-select" id="validationCustom04" required>
+                    <label for="state-select" class="form-label">State</label>
+                    <select class="form-select" id="state-select" required>
                       <option selected disabled value="">Choose...</option>
                       <option>...</option>
                     </select>
                     <div class="invalid-feedback">Please select a valid state.</div>
                   </div>
                   <div class="col-md-3">
-                    <label for="validationCustom05" class="form-label">Zip</label>
-                    <input type="text" class="form-control" id="validationCustom05" required />
+                    <label for="zip-input" class="form-label">Zip</label>
+                    <input type="text" class="form-control" id="zip-input" data-validation-rules="alnum" />
                     <div class="invalid-feedback">Please provide a valid zip.</div>
                   </div>
                 </div>
@@ -110,6 +122,39 @@
             </div>
           </div>
         </div>
+        <div class="tab-pane py-3" id="password-pane" role="tabpanel" aria-labelledby="password-tab" tabindex="0">
+          <div class="col-12 mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password">
+          </div>
+          <div class="col-12">
+            <label for="confirm-password" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="confirm-password" data-validation-rules="same #password" data-validation-trigger="blur">
+            <div class="invalid-feedback">Password must match.</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mt-4">
+        <button class="btn btn-primary" type="submit">Submit form</button>
+      </div>
+    </form>
+
+    <hr>
+
+    <p>Server side provided alerts (scrolled into view)</p>
+
+    <form action="" class="needs-validation no-scroll">
+      <div class="col-12 mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password">
+      </div>
+      <div class="col-12 mb-3">
+        <label for="confirm-password" class="form-label">Confirm Password</label>
+        <input type="password" class="form-control" id="confirm-password" data-validation-rules="same #password" data-validation-trigger="blur">
+        <div class="invalid-feedback">Password must match.</div>
+      </div>
+      <div class="alert validation mb-3">
+        Password is required!
       </div>
       <div class="col-12 mt-4">
         <button class="btn btn-primary" type="submit">Submit form</button>

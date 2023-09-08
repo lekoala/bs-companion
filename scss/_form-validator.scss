@@ -16,3 +16,23 @@
 .nav-link.is-invalid {
   @include validation-error-icon();
 }
+
+.alert.validation {
+  --#{$prefix}alert-color: var(--#{$prefix}danger-text-emphasis);
+  --#{$prefix}alert-bg: var(--#{$prefix}danger-bg-subtle);
+  --#{$prefix}alert-border-color: var(--#{$prefix}danger-border-subtle);
+  --#{$prefix}alert-link-color: var(--#{$prefix}danger-text-emphasis);
+}
+
+// Reset styles
+form.was-validated.only-invalid {
+  :valid {
+    border-color: var(--bs-form-border-color);
+    padding-right: 0.75rem;
+    background-image: none;
+  }
+
+  .valid-feedback {
+    display: none;
+  }
+}

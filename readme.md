@@ -103,6 +103,30 @@ You can easily validate all your forms using `FormValidator`
 Simply set a `needs-validation` class. You can also set a message that will be shown in case some fields are invalid.
 It will also checks in tabs and accordion and show invalid icons.
 
+### Validation on trigger
+
+You can validate on `blur` or `keydown`.
+
+```html
+<input type="email" class="form-control" id="email-input" value="" data-validation-trigger="blur" />
+```
+
+### Custom validation
+
+You can use custom validation rules. Multiple rules are supported using a , as separator.
+
+```html
+<input type="password" class="form-control" id="confirm-password" data-validation-rules="same #password" data-validation-trigger="blur">
+```
+
+Built-in rules:
+- same {fieldSelector}: check if the value is the same
+- digits: contains only digits
+- number: is a valid number
+- alnum: contains only alnum
+
+You can register custom rules using `FormValidation.registerRule`.
+
 ## Also check out
 
 - [Bootstrap 5 Tags](https://github.com/lekoala/bootstrap5-tags): tags input for bootstrap
