@@ -15,12 +15,18 @@ if (window.BSN && !window.bootstrap) {
   window.bootstrap = window.BSN;
 }
 
+const def = (n, c) => {
+  if (!customElements.get(n)) {
+    customElements.define(n, c);
+  }
+};
+
 // Register elements (you can potentially extend with your own classes or rename element)
-customElements.define("bs-tabs", BsTabs);
-customElements.define("bs-toggle", BsToggle);
-customElements.define("responsive-table", ResponsiveTable);
-customElements.define("lazy-loader", LazyLoader);
-customElements.define("bs-progress", BsProgress);
+def("bs-tabs", BsTabs);
+def("bs-toggle", BsToggle);
+def("responsive-table", ResponsiveTable);
+def("lazy-loader", LazyLoader);
+def("bs-progress", BsProgress);
 
 // Expose to global scope
 window.toaster = toaster;
